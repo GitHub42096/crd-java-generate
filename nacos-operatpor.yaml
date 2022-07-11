@@ -4,7 +4,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: nacos-operator
-  namespace: default
+  namespace: dev
   labels:
     helm.sh/chart: nacos-operator-0.1.0
     app.kubernetes.io/name: nacos-operator
@@ -25,7 +25,7 @@ spec:
   names:
     kind: Nacos
     listKind: NacosList
-    # plural: nacos
+    plural: nacos
     singular: nacos
   scope: Namespaced
   additionalPrinterColumns:
@@ -643,6 +643,122 @@ spec:
             config:
               description: 配置文件
               type: string
+            database:
+              properties:
+                mysqlDb:
+                  type: string
+                mysqlHost:
+                  type: string
+                mysqlPassword:
+                  type: string
+                mysqlPort:
+                  type: string
+                mysqlUser:
+                  type: string
+                type:
+                  type: string
+              type: object
+            env:
+              items:
+                description: EnvVar represents an environment variable present in
+                  a Container.
+                properties:
+                  name:
+                    description: Name of the environment variable. Must be a C_IDENTIFIER.
+                    type: string
+                  value:
+                    description: 'Variable references $(VAR_NAME) are expanded using
+                      the previous defined environment variables in the container
+                      and any service environment variables. If a variable cannot
+                      be resolved, the reference in the input string will be unchanged.
+                      The $(VAR_NAME) syntax can be escaped with a double $$, ie:
+                      $$(VAR_NAME). Escaped references will never be expanded, regardless
+                      of whether the variable exists or not. Defaults to "".'
+                    type: string
+                  valueFrom:
+                    description: Source for the environment variable's value. Cannot
+                      be used if value is not empty.
+                    properties:
+                      configMapKeyRef:
+                        description: Selects a key of a ConfigMap.
+                        properties:
+                          key:
+                            description: The key to select.
+                            type: string
+                          name:
+                            description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/n                              ames/#namesTODO: Add other useful fields. apiVersion, kind, uid?'
+                            type: string
+                          optional:
+                            description: Specify whether the ConfigMap or its key
+                              must be defined
+                            type: boolean
+                        required:
+                        - key
+                        type: object
+                      fieldRef:
+                        description: 'Selects a field of the pod: supports metadata.name,
+                          metadata.namespace, metadata.labels, metadata.annotations,
+                          spec.nodeName, spec.serviceAccountName, status.hostIP, status.podIP,
+                          status.podIPs.'
+                        properties:
+                          apiVersion:
+                            description: Version of the schema the FieldPath is written
+                              in terms of, defaults to "v1".
+                            type: string
+                          fieldPath:
+                            description: Path of the field to select in the specified
+                              API version.
+                            type: string
+                        required:
+                        - fieldPath
+                        type: object
+                      resourceFieldRef:
+                        description: 'Selects a resource of the container: only resources
+                          limits and requests (limits.cpu, limits.memory, limits.ephemeral-storage,
+                          requests.cpu, requests.memory and requests.ephemeral-storage)
+                          are currently supported.'
+                        properties:
+                          containerName:
+                            description: 'Container name: required for volumes, optional
+                              for env vars'
+                            type: string
+                          divisor:
+                            anyOf:
+                            - type: integer
+                            - type: string
+                            description: Specifies the output format of the exposed
+                              resources, defaults to "1"
+                            pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                            x-kubernetes-int-or-string: true
+                          resource:
+                            description: 'Required: resource to select'
+                            type: string
+                        required:
+                        - resource
+                        type: object
+                      secretKeyRef:
+                        description: Selects a key of a secret in the pod's namespace
+                        properties:
+                          key:
+                            description: The key of the secret to select from.  Must
+                              be a valid secret key.
+                            type: string
+                          name:
+                            description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+                              TODO: Add other useful fields. apiVersion, kind, uid?'
+                            type: string
+                          optional:
+                            description: Specify whether the Secret or its key must
+                              be defined
+                            type: boolean
+                        required:
+                        - key
+                        type: object
+                    type: object
+                required:
+                - name
+                type: object
+              type: array
             enableEmbedded:
               description: 是否开始开启本地数据库
               type: boolean
@@ -896,6 +1012,33 @@ spec:
             replicas:
               format: int32
               type: integer
+            resources:
+              description: VolumeClaimTemplates []v1.PersistentVolumeClaim `json:"volumeClaimTemplates,omitempty"
+                protobuf:"bytes,4,rep,name=volumeClaimTemplates"`
+              properties:
+                limits:
+                  additionalProperties:
+                    anyOf:
+                    - type: integer
+                    - type: string
+                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                    x-kubernetes-int-or-string: true
+                  description: 'Limits describes the maximum amount of compute resources
+                    allowed. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                  type: object
+                requests:
+                  additionalProperties:
+                    anyOf:
+                    - type: integer
+                    - type: string
+                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                    x-kubernetes-int-or-string: true
+                  description: 'Requests describes the minimum amount of compute resources
+                    required. If Requests is omitted for a container, it defaults
+                    to Limits if that is explicitly specified, otherwise to an implementation-defined
+                    value. More info: https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/'
+                  type: object
+              type: object
             tolerations:
               items:
                 description: The pod this Toleration is attached to tolerates any
@@ -938,6 +1081,16 @@ spec:
             type:
               description: 自定义配置 部署模式
               type: string
+            nodePort:
+              description: 集群外端口暴露
+              format: int32
+              type: integer
+            paasJobAnnotations:
+              items:
+                description: items
+                type: string
+              description: 为paas暴露promethus数据
+              type: object
             volumeClaimTemplates:
               items:
                 description: PersistentVolumeClaim is a user's request for and claim
@@ -1294,14 +1447,14 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: nacos-operator
-    namespace: default
+    namespace: dev
 ---
 # Source: nacos-operator/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: nacos-operator
-  namespace: default
+  namespace: dev
   labels:
     helm.sh/chart: nacos-operator-0.1.0
     app.kubernetes.io/name: nacos-operator
@@ -1324,7 +1477,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nacos-operator
-  namespace: default
+  namespace: dev
   labels:
     helm.sh/chart: nacos-operator-0.1.0
     app.kubernetes.io/name: nacos-operator
@@ -1350,7 +1503,7 @@ spec:
         - name: nacos-operator
           securityContext:
             {}
-          image: "nacos/nacos-operator:latest"
+          image: "127.0.0.1:5001/library/nacos/zj-nacos-operator:1.4"
           command: ["/manager"]
           args: ["--enable-leader-election"]
           imagePullPolicy: Always
@@ -1361,3 +1514,4 @@ spec:
             requests:
               cpu: 100m
               memory: 128Mi
+
