@@ -25,7 +25,7 @@ spec:
   names:
     kind: Nacos
     listKind: NacosList
-    plural: nacos
+    # plural: nacos
     singular: nacos
   scope: Namespaced
   additionalPrinterColumns:
