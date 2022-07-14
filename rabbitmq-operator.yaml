@@ -28,13 +28,13 @@ spec:
     subresources:
       status: { }
     additionalPrinterColumns:
-      - jsonPath: .status.conditions[?(@.type == 'AllReplicasReady')].status
+      - JSONPath: .status.conditions[?(@.type == 'AllReplicasReady')].status
         name: AllReplicasReady
         type: string
-      - jsonPath: .status.conditions[?(@.type == 'ReconcileSuccess')].status
+      - JSONPath: .status.conditions[?(@.type == 'ReconcileSuccess')].status
         name: ReconcileSuccess
         type: string
-      - jsonPath: .metadata.creationTimestamp
+      - JSONPath: .metadata.creationTimestamp
         name: Age
         type: date
     schema:
