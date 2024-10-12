@@ -217,10 +217,6 @@ spec:
                                               applies to.
                                             type: string
                                           operator:
-                                            description: Represents a key's relationship
-                                              to a set of values. Valid operators
-                                              are In, NotIn, Exists, DoesNotExist.
-                                              Gt, and Lt.
                                             type: string
                                           values:
                                             items:
@@ -333,13 +329,6 @@ spec:
                                           type: object
                                       type: object
                                     namespaces:
-                                      description: namespaces specifies a static list
-                                        of namespace names that the term applies to.
-                                        The term is applied to the union of the namespaces
-                                        listed in this field and the ones selected
-                                        by namespaceSelector. null or empty namespaces
-                                        list and null namespaceSelector means "this
-                                        pod's namespace".
                                       items:
                                         type: string
                                       type: array
@@ -412,10 +401,6 @@ spec:
                                               the selector applies to.
                                             type: string
                                           operator:
-                                            description: operator represents a key's
-                                              relationship to a set of values. Valid
-                                              operators are In, NotIn, Exists and
-                                              DoesNotExist.
                                             type: string
                                           values:
                                             items:
@@ -550,9 +535,6 @@ spec:
                                     in this case pods.
                                   properties:
                                     matchExpressions:
-                                      description: matchExpressions is a list of label
-                                        selector requirements. The requirements are
-                                        ANDed.
                                       items:
                                         description: A label selector requirement
                                           is a selector that contains values, a key,
@@ -564,10 +546,6 @@ spec:
                                               the selector applies to.
                                             type: string
                                           operator:
-                                            description: operator represents a key's
-                                              relationship to a set of values. Valid
-                                              operators are In, NotIn, Exists and
-                                              DoesNotExist.
                                             type: string
                                           values:
                                             items:
@@ -626,12 +604,6 @@ spec:
                                       type: object
                                   type: object
                                 namespaces:
-                                  description: namespaces specifies a static list
-                                    of namespace names that the term applies to. The
-                                    term is applied to the union of the namespaces
-                                    listed in this field and the ones selected by
-                                    namespaceSelector. null or empty namespaces list
-                                    and null namespaceSelector means "this pod's namespace".
                                   items:
                                     type: string
                                   type: array
@@ -648,18 +620,10 @@ spec:
                       type: string
                     type: array
                   containerSecurityContext:
-                    description: SecurityContext holds security configuration that
-                      will be applied to a container. Some fields are present in both
-                      SecurityContext and PodSecurityContext.  When both are set,
-                      the values in SecurityContext take precedence.
                     properties:
                       allowPrivilegeEscalation:
                         type: boolean
                       capabilities:
-                        description: The capabilities to add/drop when running containers.
-                          Defaults to the default set of capabilities granted by the
-                          container runtime. Note that this field cannot be set when
-                          spec.os.name is windows.
                         properties:
                           add:
                             description: Added capabilities
@@ -724,10 +688,6 @@ spec:
                       windowsOptions:
                         properties:
                           gmsaCredentialSpec:
-                            description: GMSACredentialSpec is where the GMSA admission
-                              webhook (https://github.com/kubernetes-sigs/windows-gmsa)
-                              inlines the contents of the GMSA credential spec named
-                              by the GMSACredentialSpecName field.
                             type: string
                           gmsaCredentialSpecName:
                             description: GMSACredentialSpecName is the name of the
@@ -768,13 +728,6 @@ spec:
                       containerSecurityContext:
                         properties:
                           allowPrivilegeEscalation:
-                            description: 'AllowPrivilegeEscalation controls whether
-                              a process can gain more privileges than its parent process.
-                              This bool directly controls if the no_new_privs flag
-                              will be set on the container process. AllowPrivilegeEscalation
-                              is true always when the container is: 1) run as Privileged
-                              2) has CAP_SYS_ADMIN Note that this field cannot be
-                              set when spec.os.name is windows.'
                             type: boolean
                           capabilities:
                             description: The capabilities to add/drop when running
@@ -811,12 +764,6 @@ spec:
                               be set when spec.os.name is windows.
                             type: boolean
                           runAsGroup:
-                            description: The GID to run the entrypoint of the container
-                              process. Uses runtime default if unset. May also be
-                              set in PodSecurityContext.  If set in both SecurityContext
-                              and PodSecurityContext, the value specified in SecurityContext
-                              takes precedence. Note that this field cannot be set
-                              when spec.os.name is windows.
                             format: int64
                             type: integer
                           runAsNonRoot:
@@ -908,11 +855,6 @@ spec:
                                   - key
                                   type: object
                                 fieldRef:
-                                  description: 'Selects a field of the pod: supports
-                                    metadata.name, metadata.namespace, `metadata.labels[''<KEY>'']`,
-                                    `metadata.annotations[''<KEY>'']`, spec.nodeName,
-                                    spec.serviceAccountName, status.hostIP, status.podIP,
-                                    status.podIPs.'
                                   properties:
                                     apiVersion:
                                       description: Version of the schema the FieldPath
@@ -926,11 +868,6 @@ spec:
                                   - fieldPath
                                   type: object
                                 resourceFieldRef:
-                                  description: 'Selects a resource of the container:
-                                    only resources limits and requests (limits.cpu,
-                                    limits.memory, limits.ephemeral-storage, requests.cpu,
-                                    requests.memory and requests.ephemeral-storage)
-                                    are currently supported.'
                                   properties:
                                     containerName:
                                       description: 'Container name: required for volumes,
@@ -1003,11 +940,6 @@ spec:
                               - type: string
                               pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                               x-kubernetes-int-or-string: true
-                            description: 'Requests describes the minimum amount of
-                              compute resources required. If Requests is omitted for
-                              a container, it defaults to Limits if that is explicitly
-                              specified, otherwise to an implementation-defined value.
-                              More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                             type: object
                         type: object
                     type: object
@@ -1234,11 +1166,6 @@ spec:
                                   - port
                                   type: object
                                 tcpSocket:
-                                  description: Deprecated. TCPSocket is NOT supported
-                                    as a LifecycleHandler and kept for the backward
-                                    compatibility. There are no validation of this
-                                    field and lifecycle hooks will fail in runtime
-                                    when tcp handler is specified.
                                   properties:
                                     host:
                                       description: 'Optional: Host name to connect
@@ -2373,17 +2300,8 @@ spec:
                             volumeClaimTemplate:
                               properties:
                                 metadata:
-                                  description: May contain labels and annotations
-                                    that will be copied into the PVC when creating
-                                    it. No other fields are allowed and will be rejected
-                                    during validation.
                                   type: object
                                 spec:
-                                  description: The specification for the PersistentVolumeClaim.
-                                    The entire content is copied unchanged into the
-                                    PVC that gets created from this template. The
-                                    same fields as in a PersistentVolumeClaim are
-                                    also valid here.
                                   properties:
                                     accessModes:
                                       description: 'accessModes contains the desired
@@ -2395,11 +2313,6 @@ spec:
                                     dataSource:
                                       properties:
                                         apiGroup:
-                                          description: APIGroup is the group for the
-                                            resource being referenced. If APIGroup
-                                            is not specified, the specified Kind must
-                                            be in the core API group. For any other
-                                            third-party types, APIGroup is required.
                                           type: string
                                         kind:
                                           description: Kind is the type of resource
@@ -2454,12 +2367,6 @@ spec:
                                             - type: string
                                             pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                                             x-kubernetes-int-or-string: true
-                                          description: 'Requests describes the minimum
-                                            amount of compute resources required.
-                                            If Requests is omitted for a container,
-                                            it defaults to Limits if that is explicitly
-                                            specified, otherwise to an implementation-defined
-                                            value. More info: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/'
                                           type: object
                                       type: object
                                     selector:
@@ -2655,18 +2562,8 @@ spec:
                           - pdName
                           type: object
                         gitRepo:
-                          description: 'gitRepo represents a git repository at a particular
-                            revision. DEPRECATED: GitRepo is deprecated. To provision
-                            a container with a git repo, mount an EmptyDir into an
-                            InitContainer that clones the repo using git, then mount
-                            the EmptyDir into the Pod''s container.'
                           properties:
                             directory:
-                              description: directory is the target directory name.
-                                Must not contain or start with '..'.  If '.' is supplied,
-                                the volume directory will be the git repository.  Otherwise,
-                                if specified, the volume will contain the git repository
-                                in the subdirectory with the given name.
                               type: string
                             repository:
                               description: repository is the URL
@@ -3630,11 +3527,6 @@ spec:
                                   - port
                                   type: object
                                 tcpSocket:
-                                  description: Deprecated. TCPSocket is NOT supported
-                                    as a LifecycleHandler and kept for the backward
-                                    compatibility. There are no validation of this
-                                    field and lifecycle hooks will fail in runtime
-                                    when tcp handler is specified.
                                   properties:
                                     host:
                                       description: 'Optional: Host name to connect
@@ -3803,11 +3695,6 @@ spec:
                                   to.
                                 type: string
                               hostPort:
-                                description: Number of port to expose on the host.
-                                  If specified, this must be a valid port number,
-                                  0 < x < 65536. If HostNetwork is specified, this
-                                  must match ContainerPort. Most containers do not
-                                  need this.
                                 format: int32
                                 type: integer
                               name:
@@ -3838,15 +3725,6 @@ spec:
                               description: Exec specifies the action to take.
                               properties:
                                 command:
-                                  description: Command is the command line to execute
-                                    inside the container, the working directory for
-                                    the command  is root ('/') in the container's
-                                    filesystem. The command is simply exec'd, it is
-                                    not run inside a shell, so traditional shell instructions
-                                    ('|', etc) won't work. To use a shell, you need
-                                    to explicitly call out to that shell. Exit status
-                                    of 0 is treated as live/healthy and non-zero is
-                                    unhealthy.
                                   items:
                                     type: string
                                   type: array
@@ -4041,12 +3919,6 @@ spec:
                                 field cannot be set when spec.os.name is windows.
                               type: boolean
                             runAsGroup:
-                              description: The GID to run the entrypoint of the container
-                                process. Uses runtime default if unset. May also be
-                                set in PodSecurityContext.  If set in both SecurityContext
-                                and PodSecurityContext, the value specified in SecurityContext
-                                takes precedence. Note that this field cannot be set
-                                when spec.os.name is windows.
                               format: int64
                               type: integer
                             runAsNonRoot:
@@ -4055,14 +3927,6 @@ spec:
                               format: int64
                               type: integer
                             seLinuxOptions:
-                              description: The SELinux context to be applied to the
-                                container. If unspecified, the container runtime will
-                                allocate a random SELinux context for each container.  May
-                                also be set in PodSecurityContext.  If set in both
-                                SecurityContext and PodSecurityContext, the value
-                                specified in SecurityContext takes precedence. Note
-                                that this field cannot be set when spec.os.name is
-                                windows.
                               properties:
                                 level:
                                   description: Level is SELinux level label that applies
@@ -4082,44 +3946,17 @@ spec:
                                   type: string
                               type: object
                             seccompProfile:
-                              description: The seccomp options to use by this container.
-                                If seccomp options are provided at both the pod &
-                                container level, the container options override the
-                                pod options. Note that this field cannot be set when
-                                spec.os.name is windows.
                               properties:
                                 localhostProfile:
-                                  description: localhostProfile indicates a profile
-                                    defined in a file on the node should be used.
-                                    The profile must be preconfigured on the node
-                                    to work. Must be a descending path, relative to
-                                    the kubelet's configured seccomp profile location.
-                                    Must only be set if type is "Localhost".
                                   type: string
                                 type:
-                                  description: "type indicates which kind of seccomp
-                                    profile will be applied. Valid options are: \n
-                                    Localhost - a profile defined in a file on the
-                                    node should be used. RuntimeDefault - the container
-                                    runtime default profile should be used. Unconfined
-                                    - no profile should be applied."
                                   type: string
                               required:
                               - type
                               type: object
                             windowsOptions:
-                              description: The Windows specific settings applied to
-                                all containers. If unspecified, the options from the
-                                PodSecurityContext will be used. If set in both SecurityContext
-                                and PodSecurityContext, the value specified in SecurityContext
-                                takes precedence. Note that this field cannot be set
-                                when spec.os.name is linux.
                               properties:
                                 gmsaCredentialSpec:
-                                  description: GMSACredentialSpec is where the GMSA
-                                    admission webhook (https://github.com/kubernetes-sigs/windows-gmsa)
-                                    inlines the contents of the GMSA credential spec
-                                    named by the GMSACredentialSpecName field.
                                   type: string
                                 gmsaCredentialSpecName:
                                   description: GMSACredentialSpecName is the name
@@ -4248,21 +4085,6 @@ spec:
                               - port
                               type: object
                             terminationGracePeriodSeconds:
-                              description: Optional duration in seconds the pod needs
-                                to terminate gracefully upon probe failure. The grace
-                                period is the duration in seconds after the processes
-                                running in the pod are sent a termination signal and
-                                the time when the processes are forcibly halted with
-                                a kill signal. Set this value longer than the expected
-                                cleanup time for your process. If this value is nil,
-                                the pod's terminationGracePeriodSeconds will be used.
-                                Otherwise, this value overrides the value provided
-                                by the pod spec. Value must be non-negative integer.
-                                The value zero indicates stop immediately via the
-                                kill signal (no opportunity to shut down). This is
-                                a beta field and requires enabling ProbeTerminationGracePeriod
-                                feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds
-                                is used if unset.
                               format: int64
                               type: integer
                             timeoutSeconds:
@@ -4394,10 +4216,6 @@ spec:
                         type: object
                     type: object
                   securityContext:
-                    description: PodSecurityContext holds pod-level security attributes
-                      and common container settings. Some fields are also present
-                      in container.securityContext.  Field values of container.securityContext
-                      take precedence over field values of PodSecurityContext.
                     properties:
                       fsGroup:
                         format: int64
@@ -4444,20 +4262,11 @@ spec:
                         - type
                         type: object
                       supplementalGroups:
-                        description: A list of groups applied to the first process
-                          run in each container, in addition to the container's primary
-                          GID.  If unspecified, no groups will be added to any container.
-                          Note that this field cannot be set when spec.os.name is
-                          windows.
                         items:
                           format: int64
                           type: integer
                         type: array
                       sysctls:
-                        description: Sysctls hold a list of namespaced sysctls used
-                          for the pod. Pods with unsupported sysctls (by the container
-                          runtime) might fail to launch. Note that this field cannot
-                          be set when spec.os.name is windows.
                         items:
                           description: Sysctl defines a kernel parameter to be set
                           properties:
@@ -4475,10 +4284,6 @@ spec:
                       windowsOptions:
                         properties:
                           gmsaCredentialSpec:
-                            description: GMSACredentialSpec is where the GMSA admission
-                              webhook (https://github.com/kubernetes-sigs/windows-gmsa)
-                              inlines the contents of the GMSA credential spec named
-                              by the GMSACredentialSpecName field.
                             type: string
                           gmsaCredentialSpecName:
                             description: GMSACredentialSpecName is the name of the
@@ -4517,14 +4322,6 @@ spec:
                             anyOf:
                             - type: integer
                             - type: string
-                            description: 'sizeLimit is the total amount of local storage
-                              required for this EmptyDir volume. The size limit is
-                              also applicable for memory medium. The maximum usage
-                              on memory medium EmptyDir would be the minimum value
-                              between the SizeLimit specified here and the sum of
-                              memory limits of all containers in a pod. The default
-                              is nil which means that the limit is undefined. More
-                              info: http://kubernetes.io/docs/user-guide/volumes#emptydir'
                             pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
                             x-kubernetes-int-or-string: true
                         type: object
@@ -4569,12 +4366,6 @@ spec:
                                   and services. More info: http://kubernetes.io/docs/user-guide/labels'
                                 type: object
                               name:
-                                description: 'Name must be unique within a namespace.
-                                  Is required when creating resources, although some
-                                  resources may allow a client to request the generation
-                                  of an appropriate name automatically. Name is primarily
-                                  intended for creation idempotence and configuration
-                                  definition. Cannot be updated. More info: http://kubernetes.io/docs/user-guide/identifiers#names'
                                 type: string
                             type: object
                           spec:
@@ -4588,22 +4379,8 @@ spec:
                                   type: string
                                 type: array
                               dataSource:
-                                description: 'dataSource field can be used to specify
-                                  either: * An existing VolumeSnapshot object (snapshot.storage.k8s.io/VolumeSnapshot)
-                                  * An existing PVC (PersistentVolumeClaim) If the
-                                  provisioner or an external controller can support
-                                  the specified data source, it will create a new
-                                  volume based on the contents of the specified data
-                                  source. If the AnyVolumeDataSource feature gate
-                                  is enabled, this field will always have the same
-                                  contents as the DataSourceRef field.'
                                 properties:
                                   apiGroup:
-                                    description: APIGroup is the group for the resource
-                                      being referenced. If APIGroup is not specified,
-                                      the specified Kind must be in the core API group.
-                                      For any other third-party types, APIGroup is
-                                      required.
                                     type: string
                                   kind:
                                     description: Kind is the type of resource being
@@ -4620,11 +4397,6 @@ spec:
                               dataSourceRef:
                                 properties:
                                   apiGroup:
-                                    description: APIGroup is the group for the resource
-                                      being referenced. If APIGroup is not specified,
-                                      the specified Kind must be in the core API group.
-                                      For any other third-party types, APIGroup is
-                                      required.
                                     type: string
                                   kind:
                                     description: Kind is the type of resource being
@@ -4639,12 +4411,6 @@ spec:
                                 - name
                                 type: object
                               resources:
-                                description: 'resources represents the minimum resources
-                                  the volume should have. If RecoverVolumeExpansionFailure
-                                  feature is enabled users are allowed to specify
-                                  resource requirements that are lower than previous
-                                  value but must still be higher than capacity recorded
-                                  in the status field of the claim. More info: https://kubernetes.io/docs/concepts/storage/persistent-volumes#resources'
                                 properties:
                                   limits:
                                     additionalProperties:
@@ -4694,12 +4460,6 @@ spec:
                                             operators are In, NotIn, Exists and DoesNotExist.
                                           type: string
                                         values:
-                                          description: values is an array of string
-                                            values. If the operator is In or NotIn,
-                                            the values array must be non-empty. If
-                                            the operator is Exists or DoesNotExist,
-                                            the values array must be empty. This array
-                                            is replaced during a strategic merge patch.
                                           items:
                                             type: string
                                           type: array
@@ -4847,9 +4607,6 @@ spec:
                         matching pods among the given topology.
                       properties:
                         labelSelector:
-                          description: LabelSelector is used to find matching pods.
-                            Pods that match this label selector are counted to determine
-                            the number of pods in their corresponding topology domain.
                           properties:
                             matchExpressions:
                               description: matchExpressions is a list of label selector
@@ -4886,11 +4643,6 @@ spec:
                             matchLabels:
                               additionalProperties:
                                 type: string
-                              description: matchLabels is a map of {key,value} pairs.
-                                A single {key,value} in the matchLabels map is equivalent
-                                to an element of matchExpressions, whose key field
-                                is "key", the operator is "In", and the values array
-                                contains only "value". The requirements are ANDed.
                               type: object
                           type: object
                         maxSkew:
@@ -5005,10 +4757,6 @@ spec:
                                 description: Required. A list of node selector terms.
                                   The terms are ORed.
                                 items:
-                                  description: A null or empty node selector term
-                                    matches no objects. The requirements of them are
-                                    ANDed. The TopologySelectorTerm type implements
-                                    a subset of the NodeSelectorTerm.
                                   properties:
                                     matchExpressions:
                                       description: A list of node selector requirements
@@ -5165,22 +4913,9 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     namespaces:
-                                      description: namespaces specifies a static list
-                                        of namespace names that the term applies to.
-                                        The term is applied to the union of the namespaces
-                                        listed in this field and the ones selected
-                                        by namespaceSelector. null or empty namespaces
-                                        list and null namespaceSelector means "this
-                                        pod's namespace".
                                       items:
                                         type: string
                                       type: array
@@ -5227,13 +4962,6 @@ spec:
                                               DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -5245,12 +4973,6 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaceSelector:
@@ -5270,19 +4992,8 @@ spec:
                                               the selector applies to.
                                             type: string
                                           operator:
-                                            description: operator represents a key's
-                                              relationship to a set of values. Valid
-                                              operators are In, NotIn, Exists and
-                                              DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -5294,21 +5005,9 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaces:
-                                  description: namespaces specifies a static list
-                                    of namespace names that the term applies to. The
-                                    term is applied to the union of the namespaces
-                                    listed in this field and the ones selected by
-                                    namespaceSelector. null or empty namespaces list
-                                    and null namespaceSelector means "this pod's namespace".
                                   items:
                                     type: string
                                   type: array
@@ -5370,12 +5069,6 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     namespaceSelector:
@@ -5385,10 +5078,6 @@ spec:
                                             of label selector requirements. The requirements
                                             are ANDed.
                                           items:
-                                            description: A label selector requirement
-                                              is a selector that contains values,
-                                              a key, and an operator that relates
-                                              the key and values.
                                             properties:
                                               key:
                                                 description: key is the label key
@@ -5401,14 +5090,6 @@ spec:
                                                   and DoesNotExist.
                                                 type: string
                                               values:
-                                                description: values is an array of
-                                                  string values. If the operator is
-                                                  In or NotIn, the values array must
-                                                  be non-empty. If the operator is
-                                                  Exists or DoesNotExist, the values
-                                                  array must be empty. This array
-                                                  is replaced during a strategic merge
-                                                  patch.
                                                 items:
                                                   type: string
                                                 type: array
@@ -5420,22 +5101,9 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     namespaces:
-                                      description: namespaces specifies a static list
-                                        of namespace names that the term applies to.
-                                        The term is applied to the union of the namespaces
-                                        listed in this field and the ones selected
-                                        by namespaceSelector. null or empty namespaces
-                                        list and null namespaceSelector means "this
-                                        pod's namespace".
                                       items:
                                         type: string
                                       type: array
@@ -5476,19 +5144,8 @@ spec:
                                               the selector applies to.
                                             type: string
                                           operator:
-                                            description: operator represents a key's
-                                              relationship to a set of values. Valid
-                                              operators are In, NotIn, Exists and
-                                              DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -5500,12 +5157,6 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaceSelector:
@@ -5525,19 +5176,8 @@ spec:
                                               the selector applies to.
                                             type: string
                                           operator:
-                                            description: operator represents a key's
-                                              relationship to a set of values. Valid
-                                              operators are In, NotIn, Exists and
-                                              DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -5549,32 +5189,13 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaces:
-                                  description: namespaces specifies a static list
-                                    of namespace names that the term applies to. The
-                                    term is applied to the union of the namespaces
-                                    listed in this field and the ones selected by
-                                    namespaceSelector. null or empty namespaces list
-                                    and null namespaceSelector means "this pod's namespace".
                                   items:
                                     type: string
                                   type: array
                                 topologyKey:
-                                  description: This pod should be co-located (affinity)
-                                    or not co-located (anti-affinity) with the pods
-                                    matching the labelSelector in the specified namespaces,
-                                    where co-located is defined as running on a node
-                                    whose value of the label with key topologyKey
-                                    matches that of any node on which any of the selected
-                                    pods is running. Empty topologyKey is not allowed.
                                   type: string
                               required:
                               - topologyKey
@@ -5606,10 +5227,6 @@ spec:
                               set when spec.os.name is windows.'
                             type: boolean
                           capabilities:
-                            description: The capabilities to add/drop when running
-                              containers. Defaults to the default set of capabilities
-                              granted by the container runtime. Note that this field
-                              cannot be set when spec.os.name is windows.
                             properties:
                               add:
                                 description: Added capabilities
@@ -5633,12 +5250,6 @@ spec:
                               field cannot be set when spec.os.name is windows.
                             type: boolean
                           procMount:
-                            description: procMount denotes the type of proc mount
-                              to use for the containers. The default is DefaultProcMount
-                              which uses the container runtime defaults for readonly
-                              paths and masked paths. This requires the ProcMountType
-                              feature flag to be enabled. Note that this field cannot
-                              be set when spec.os.name is windows.
                             type: string
                           readOnlyRootFilesystem:
                             description: Whether this container has a read-only root
@@ -5646,34 +5257,14 @@ spec:
                               be set when spec.os.name is windows.
                             type: boolean
                           runAsGroup:
-                            description: The GID to run the entrypoint of the container
-                              process. Uses runtime default if unset. May also be
-                              set in PodSecurityContext.  If set in both SecurityContext
-                              and PodSecurityContext, the value specified in SecurityContext
-                              takes precedence. Note that this field cannot be set
-                              when spec.os.name is windows.
                             format: int64
                             type: integer
                           runAsNonRoot:
                             type: boolean
                           runAsUser:
-                            description: The UID to run the entrypoint of the container
-                              process. Defaults to user specified in image metadata
-                              if unspecified. May also be set in PodSecurityContext.  If
-                              set in both SecurityContext and PodSecurityContext,
-                              the value specified in SecurityContext takes precedence.
-                              Note that this field cannot be set when spec.os.name
-                              is windows.
                             format: int64
                             type: integer
                           seLinuxOptions:
-                            description: The SELinux context to be applied to the
-                              container. If unspecified, the container runtime will
-                              allocate a random SELinux context for each container.  May
-                              also be set in PodSecurityContext.  If set in both SecurityContext
-                              and PodSecurityContext, the value specified in SecurityContext
-                              takes precedence. Note that this field cannot be set
-                              when spec.os.name is windows.
                             properties:
                               level:
                                 description: Level is SELinux level label that applies
@@ -5693,44 +5284,17 @@ spec:
                                 type: string
                             type: object
                           seccompProfile:
-                            description: The seccomp options to use by this container.
-                              If seccomp options are provided at both the pod & container
-                              level, the container options override the pod options.
-                              Note that this field cannot be set when spec.os.name
-                              is windows.
                             properties:
                               localhostProfile:
-                                description: localhostProfile indicates a profile
-                                  defined in a file on the node should be used. The
-                                  profile must be preconfigured on the node to work.
-                                  Must be a descending path, relative to the kubelet's
-                                  configured seccomp profile location. Must only be
-                                  set if type is "Localhost".
                                 type: string
                               type:
-                                description: "type indicates which kind of seccomp
-                                  profile will be applied. Valid options are: \n Localhost
-                                  - a profile defined in a file on the node should
-                                  be used. RuntimeDefault - the container runtime
-                                  default profile should be used. Unconfined - no
-                                  profile should be applied."
                                 type: string
                             required:
                             - type
                             type: object
                           windowsOptions:
-                            description: The Windows specific settings applied to
-                              all containers. If unspecified, the options from the
-                              PodSecurityContext will be used. If set in both SecurityContext
-                              and PodSecurityContext, the value specified in SecurityContext
-                              takes precedence. Note that this field cannot be set
-                              when spec.os.name is linux.
                             properties:
                               gmsaCredentialSpec:
-                                description: GMSACredentialSpec is where the GMSA
-                                  admission webhook (https://github.com/kubernetes-sigs/windows-gmsa)
-                                  inlines the contents of the GMSA credential spec
-                                  named by the GMSACredentialSpecName field.
                                 type: string
                               gmsaCredentialSpecName:
                                 description: GMSACredentialSpecName is the name of
@@ -5739,36 +5303,15 @@ spec:
                               hostProcess:
                                 type: boolean
                               runAsUserName:
-                                description: The UserName in Windows to run the entrypoint
-                                  of the container process. Defaults to the user specified
-                                  in image metadata if unspecified. May also be set
-                                  in PodSecurityContext. If set in both SecurityContext
-                                  and PodSecurityContext, the value specified in SecurityContext
-                                  takes precedence.
                                 type: string
                             type: object
                         type: object
                     type: object
                   containerSecurityContext:
-                    description: SecurityContext holds security configuration that
-                      will be applied to a container. Some fields are present in both
-                      SecurityContext and PodSecurityContext.  When both are set,
-                      the values in SecurityContext take precedence.
                     properties:
                       allowPrivilegeEscalation:
-                        description: 'AllowPrivilegeEscalation controls whether a
-                          process can gain more privileges than its parent process.
-                          This bool directly controls if the no_new_privs flag will
-                          be set on the container process. AllowPrivilegeEscalation
-                          is true always when the container is: 1) run as Privileged
-                          2) has CAP_SYS_ADMIN Note that this field cannot be set
-                          when spec.os.name is windows.'
                         type: boolean
                       capabilities:
-                        description: The capabilities to add/drop when running containers.
-                          Defaults to the default set of capabilities granted by the
-                          container runtime. Note that this field cannot be set when
-                          spec.os.name is windows.
                         properties:
                           add:
                             description: Added capabilities
@@ -5786,42 +5329,17 @@ spec:
                             type: array
                         type: object
                       privileged:
-                        description: Run container in privileged mode. Processes in
-                          privileged containers are essentially equivalent to root
-                          on the host. Defaults to false. Note that this field cannot
-                          be set when spec.os.name is windows.
                         type: boolean
                       procMount:
-                        description: procMount denotes the type of proc mount to use
-                          for the containers. The default is DefaultProcMount which
-                          uses the container runtime defaults for readonly paths and
-                          masked paths. This requires the ProcMountType feature flag
-                          to be enabled. Note that this field cannot be set when spec.os.name
-                          is windows.
                         type: string
                       readOnlyRootFilesystem:
-                        description: Whether this container has a read-only root filesystem.
-                          Default is false. Note that this field cannot be set when
-                          spec.os.name is windows.
                         type: boolean
                       runAsGroup:
-                        description: The GID to run the entrypoint of the container
-                          process. Uses runtime default if unset. May also be set
-                          in PodSecurityContext.  If set in both SecurityContext and
-                          PodSecurityContext, the value specified in SecurityContext
-                          takes precedence. Note that this field cannot be set when
-                          spec.os.name is windows.
                         format: int64
                         type: integer
                       runAsNonRoot:
                         type: boolean
                       runAsUser:
-                        description: The UID to run the entrypoint of the container
-                          process. Defaults to user specified in image metadata if
-                          unspecified. May also be set in PodSecurityContext.  If
-                          set in both SecurityContext and PodSecurityContext, the
-                          value specified in SecurityContext takes precedence. Note
-                          that this field cannot be set when spec.os.name is windows.
                         format: int64
                         type: integer
                       seLinuxOptions:
@@ -5844,41 +5362,17 @@ spec:
                             type: string
                         type: object
                       seccompProfile:
-                        description: The seccomp options to use by this container.
-                          If seccomp options are provided at both the pod & container
-                          level, the container options override the pod options. Note
-                          that this field cannot be set when spec.os.name is windows.
                         properties:
                           localhostProfile:
-                            description: localhostProfile indicates a profile defined
-                              in a file on the node should be used. The profile must
-                              be preconfigured on the node to work. Must be a descending
-                              path, relative to the kubelet's configured seccomp profile
-                              location. Must only be set if type is "Localhost".
                             type: string
                           type:
-                            description: "type indicates which kind of seccomp profile
-                              will be applied. Valid options are: \n Localhost - a
-                              profile defined in a file on the node should be used.
-                              RuntimeDefault - the container runtime default profile
-                              should be used. Unconfined - no profile should be applied."
                             type: string
                         required:
                         - type
                         type: object
                       windowsOptions:
-                        description: The Windows specific settings applied to all
-                          containers. If unspecified, the options from the PodSecurityContext
-                          will be used. If set in both SecurityContext and PodSecurityContext,
-                          the value specified in SecurityContext takes precedence.
-                          Note that this field cannot be set when spec.os.name is
-                          linux.
                         properties:
                           gmsaCredentialSpec:
-                            description: GMSACredentialSpec is where the GMSA admission
-                              webhook (https://github.com/kubernetes-sigs/windows-gmsa)
-                              inlines the contents of the GMSA credential spec named
-                              by the GMSACredentialSpecName field.
                             type: string
                           gmsaCredentialSpecName:
                             description: GMSACredentialSpecName is the name of the
@@ -5906,25 +5400,10 @@ spec:
                           type: string
                         type: array
                       containerSecurityContext:
-                        description: SecurityContext holds security configuration
-                          that will be applied to a container. Some fields are present
-                          in both SecurityContext and PodSecurityContext.  When both
-                          are set, the values in SecurityContext take precedence.
                         properties:
                           allowPrivilegeEscalation:
-                            description: 'AllowPrivilegeEscalation controls whether
-                              a process can gain more privileges than its parent process.
-                              This bool directly controls if the no_new_privs flag
-                              will be set on the container process. AllowPrivilegeEscalation
-                              is true always when the container is: 1) run as Privileged
-                              2) has CAP_SYS_ADMIN Note that this field cannot be
-                              set when spec.os.name is windows.'
                             type: boolean
                           capabilities:
-                            description: The capabilities to add/drop when running
-                              containers. Defaults to the default set of capabilities
-                              granted by the container runtime. Note that this field
-                              cannot be set when spec.os.name is windows.
                             properties:
                               add:
                                 description: Added capabilities
