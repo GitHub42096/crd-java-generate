@@ -9464,10 +9464,6 @@ spec:
                         type: object
                     type: object
                   securityContext:
-                    description: PodSecurityContext holds pod-level security attributes
-                      and common container settings. Some fields are also present
-                      in container.securityContext.  Field values of container.securityContext
-                      take precedence over field values of PodSecurityContext.
                     properties:
                       fsGroup:
                         format: int64
@@ -9509,11 +9505,6 @@ spec:
                           localhostProfile:
                             type: string
                           type:
-                            description: "type indicates which kind of seccomp profile
-                              will be applied. Valid options are: \n Localhost - a
-                              profile defined in a file on the node should be used.
-                              RuntimeDefault - the container runtime default profile
-                              should be used. Unconfined - no profile should be applied."
                             type: string
                         required:
                         - type
@@ -9562,12 +9553,6 @@ spec:
                           hostProcess:
                             type: boolean
                           runAsUserName:
-                            description: The UserName in Windows to run the entrypoint
-                              of the container process. Defaults to the user specified
-                              in image metadata if unspecified. May also be set in
-                              PodSecurityContext. If set in both SecurityContext and
-                              PodSecurityContext, the value specified in SecurityContext
-                              takes precedence.
                             type: string
                         type: object
                     type: object
@@ -9595,19 +9580,8 @@ spec:
                             all values and all keys.
                           type: string
                         operator:
-                          description: Operator represents a key's relationship to
-                            the value. Valid operators are Exists and Equal. Defaults
-                            to Equal. Exists is equivalent to wildcard for value,
-                            so that a pod can tolerate all taints of a particular
-                            category.
                           type: string
                         tolerationSeconds:
-                          description: TolerationSeconds represents the period of
-                            time the toleration (which must be of effect NoExecute,
-                            otherwise this field is ignored) tolerates the taint.
-                            By default, it is not set, which means tolerate the taint
-                            forever (do not evict). Zero and negative values will
-                            be treated as 0 (evict immediately) by the system.
                           format: int64
                           type: integer
                         value:
@@ -9645,12 +9619,6 @@ spec:
                                       NotIn, Exists and DoesNotExist.
                                     type: string
                                   values:
-                                    description: values is an array of string values.
-                                      If the operator is In or NotIn, the values array
-                                      must be non-empty. If the operator is Exists
-                                      or DoesNotExist, the values array must be empty.
-                                      This array is replaced during a strategic merge
-                                      patch.
                                     items:
                                       type: string
                                     type: array
