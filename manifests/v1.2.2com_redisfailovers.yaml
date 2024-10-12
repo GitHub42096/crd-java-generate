@@ -84,17 +84,6 @@ spec:
                           the pod.
                         properties:
                           preferredDuringSchedulingIgnoredDuringExecution:
-                            description: The scheduler will prefer to schedule pods
-                              to nodes that satisfy the affinity expressions specified
-                              by this field, but it may choose a node that violates
-                              one or more of the expressions. The node that is most
-                              preferred is the one with the greatest sum of weights,
-                              i.e. for each node that meets all of the scheduling
-                              requirements (resource request, requiredDuringScheduling
-                              affinity expressions, etc.), compute a sum by iterating
-                              through the elements of this field and adding "weight"
-                              to the sum if the node matches the corresponding matchExpressions;
-                              the node(s) with the highest sum are the most preferred.
                             items:
                               description: An empty preferred scheduling term matches
                                 all objects with implicit weight 0 (i.e. it's a no-op).
@@ -156,16 +145,6 @@ spec:
                                               Gt, and Lt.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is In or NotIn, the
-                                              values array must be non-empty. If the
-                                              operator is Exists or DoesNotExist,
-                                              the values array must be empty. If the
-                                              operator is Gt or Lt, the values array
-                                              must have a single element, which will
-                                              be interpreted as an integer. This array
-                                              is replaced during a strategic merge
-                                              patch.
                                             items:
                                               type: string
                                             type: array
@@ -186,13 +165,6 @@ spec:
                               type: object
                             type: array
                           requiredDuringSchedulingIgnoredDuringExecution:
-                            description: If the affinity requirements specified by
-                              this field are not met at scheduling time, the pod will
-                              not be scheduled onto the node. If the affinity requirements
-                              specified by this field cease to be met at some point
-                              during pod execution (e.g. due to an update), the system
-                              may or may not try to eventually evict the pod from
-                              its node.
                             properties:
                               nodeSelectorTerms:
                                 description: Required. A list of node selector terms.
@@ -223,16 +195,6 @@ spec:
                                               Gt, and Lt.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is In or NotIn, the
-                                              values array must be non-empty. If the
-                                              operator is Exists or DoesNotExist,
-                                              the values array must be empty. If the
-                                              operator is Gt or Lt, the values array
-                                              must have a single element, which will
-                                              be interpreted as an integer. This array
-                                              is replaced during a strategic merge
-                                              patch.
                                             items:
                                               type: string
                                             type: array
@@ -261,16 +223,6 @@ spec:
                                               Gt, and Lt.
                                             type: string
                                           values:
-                                            description: An array of string values.
-                                              If the operator is In or NotIn, the
-                                              values array must be non-empty. If the
-                                              operator is Exists or DoesNotExist,
-                                              the values array must be empty. If the
-                                              operator is Gt or Lt, the values array
-                                              must have a single element, which will
-                                              be interpreted as an integer. This array
-                                              is replaced during a strategic merge
-                                              patch.
                                             items:
                                               type: string
                                             type: array
@@ -291,18 +243,6 @@ spec:
                           other pod(s)).
                         properties:
                           preferredDuringSchedulingIgnoredDuringExecution:
-                            description: The scheduler will prefer to schedule pods
-                              to nodes that satisfy the affinity expressions specified
-                              by this field, but it may choose a node that violates
-                              one or more of the expressions. The node that is most
-                              preferred is the one with the greatest sum of weights,
-                              i.e. for each node that meets all of the scheduling
-                              requirements (resource request, requiredDuringScheduling
-                              affinity expressions, etc.), compute a sum by iterating
-                              through the elements of this field and adding "weight"
-                              to the sum if the node has pods which matches the corresponding
-                              podAffinityTerm; the node(s) with the highest sum are
-                              the most preferred.
                             items:
                               description: The weights of all of the matched WeightedPodAffinityTerm
                                 fields are added per-node to find the most preferred
@@ -337,14 +277,6 @@ spec:
                                                   and DoesNotExist.
                                                 type: string
                                               values:
-                                                description: values is an array of
-                                                  string values. If the operator is
-                                                  In or NotIn, the values array must
-                                                  be non-empty. If the operator is
-                                                  Exists or DoesNotExist, the values
-                                                  array must be empty. This array
-                                                  is replaced during a strategic merge
-                                                  patch.
                                                 items:
                                                   type: string
                                                 type: array
@@ -365,13 +297,6 @@ spec:
                                           type: object
                                       type: object
                                     namespaceSelector:
-                                      description: A label query over the set of namespaces
-                                        that the term applies to. The term is applied
-                                        to the union of the namespaces selected by
-                                        this field and the ones listed in the namespaces
-                                        field. null selector and null or empty namespaces
-                                        list means "this pod's namespace". An empty
-                                        selector ({}) matches all namespaces.
                                       properties:
                                         matchExpressions:
                                           description: matchExpressions is a list
@@ -394,14 +319,6 @@ spec:
                                                   and DoesNotExist.
                                                 type: string
                                               values:
-                                                description: values is an array of
-                                                  string values. If the operator is
-                                                  In or NotIn, the values array must
-                                                  be non-empty. If the operator is
-                                                  Exists or DoesNotExist, the values
-                                                  array must be empty. This array
-                                                  is replaced during a strategic merge
-                                                  patch.
                                                 items:
                                                   type: string
                                                 type: array
@@ -413,12 +330,6 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     namespaces:
@@ -433,14 +344,6 @@ spec:
                                         type: string
                                       type: array
                                     topologyKey:
-                                      description: This pod should be co-located (affinity)
-                                        or not co-located (anti-affinity) with the
-                                        pods matching the labelSelector in the specified
-                                        namespaces, where co-located is defined as
-                                        running on a node whose value of the label
-                                        with key topologyKey matches that of any node
-                                        on which any of the selected pods is running.
-                                        Empty topologyKey is not allowed.
                                       type: string
                                   required:
                                   - topologyKey
@@ -456,23 +359,7 @@ spec:
                               type: object
                             type: array
                           requiredDuringSchedulingIgnoredDuringExecution:
-                            description: If the affinity requirements specified by
-                              this field are not met at scheduling time, the pod will
-                              not be scheduled onto the node. If the affinity requirements
-                              specified by this field cease to be met at some point
-                              during pod execution (e.g. due to a pod label update),
-                              the system may or may not try to eventually evict the
-                              pod from its node. When there are multiple elements,
-                              the lists of nodes corresponding to each podAffinityTerm
-                              are intersected, i.e. all terms must be satisfied.
                             items:
-                              description: Defines a set of pods (namely those matching
-                                the labelSelector relative to the given namespace(s))
-                                that this pod should be co-located (affinity) or not
-                                co-located (anti-affinity) with, where co-located
-                                is defined as running on a node whose value of the
-                                label with key <topologyKey> matches that of any node
-                                on which a pod of the set of pods is running
                               properties:
                                 labelSelector:
                                   description: A label query over a set of resources,
@@ -493,19 +380,8 @@ spec:
                                               the selector applies to.
                                             type: string
                                           operator:
-                                            description: operator represents a key's
-                                              relationship to a set of values. Valid
-                                              operators are In, NotIn, Exists and
-                                              DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -517,22 +393,9 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaceSelector:
-                                  description: A label query over the set of namespaces
-                                    that the term applies to. The term is applied
-                                    to the union of the namespaces selected by this
-                                    field and the ones listed in the namespaces field.
-                                    null selector and null or empty namespaces list
-                                    means "this pod's namespace". An empty selector
-                                    ({}) matches all namespaces.
                                   properties:
                                     matchExpressions:
                                       description: matchExpressions is a list of label
@@ -555,13 +418,6 @@ spec:
                                               DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -573,32 +429,13 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaces:
-                                  description: namespaces specifies a static list
-                                    of namespace names that the term applies to. The
-                                    term is applied to the union of the namespaces
-                                    listed in this field and the ones selected by
-                                    namespaceSelector. null or empty namespaces list
-                                    and null namespaceSelector means "this pod's namespace".
                                   items:
                                     type: string
                                   type: array
                                 topologyKey:
-                                  description: This pod should be co-located (affinity)
-                                    or not co-located (anti-affinity) with the pods
-                                    matching the labelSelector in the specified namespaces,
-                                    where co-located is defined as running on a node
-                                    whose value of the label with key topologyKey
-                                    matches that of any node on which any of the selected
-                                    pods is running. Empty topologyKey is not allowed.
                                   type: string
                               required:
                               - topologyKey
@@ -611,18 +448,6 @@ spec:
                           as some other pod(s)).
                         properties:
                           preferredDuringSchedulingIgnoredDuringExecution:
-                            description: The scheduler will prefer to schedule pods
-                              to nodes that satisfy the anti-affinity expressions
-                              specified by this field, but it may choose a node that
-                              violates one or more of the expressions. The node that
-                              is most preferred is the one with the greatest sum of
-                              weights, i.e. for each node that meets all of the scheduling
-                              requirements (resource request, requiredDuringScheduling
-                              anti-affinity expressions, etc.), compute a sum by iterating
-                              through the elements of this field and adding "weight"
-                              to the sum if the node has pods which matches the corresponding
-                              podAffinityTerm; the node(s) with the highest sum are
-                              the most preferred.
                             items:
                               description: The weights of all of the matched WeightedPodAffinityTerm
                                 fields are added per-node to find the most preferred
@@ -651,20 +476,8 @@ spec:
                                                   that the selector applies to.
                                                 type: string
                                               operator:
-                                                description: operator represents a
-                                                  key's relationship to a set of values.
-                                                  Valid operators are In, NotIn, Exists
-                                                  and DoesNotExist.
                                                 type: string
                                               values:
-                                                description: values is an array of
-                                                  string values. If the operator is
-                                                  In or NotIn, the values array must
-                                                  be non-empty. If the operator is
-                                                  Exists or DoesNotExist, the values
-                                                  array must be empty. This array
-                                                  is replaced during a strategic merge
-                                                  patch.
                                                 items:
                                                   type: string
                                                 type: array
@@ -676,22 +489,9 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     namespaceSelector:
-                                      description: A label query over the set of namespaces
-                                        that the term applies to. The term is applied
-                                        to the union of the namespaces selected by
-                                        this field and the ones listed in the namespaces
-                                        field. null selector and null or empty namespaces
-                                        list means "this pod's namespace". An empty
-                                        selector ({}) matches all namespaces.
                                       properties:
                                         matchExpressions:
                                           description: matchExpressions is a list
@@ -708,20 +508,8 @@ spec:
                                                   that the selector applies to.
                                                 type: string
                                               operator:
-                                                description: operator represents a
-                                                  key's relationship to a set of values.
-                                                  Valid operators are In, NotIn, Exists
-                                                  and DoesNotExist.
                                                 type: string
                                               values:
-                                                description: values is an array of
-                                                  string values. If the operator is
-                                                  In or NotIn, the values array must
-                                                  be non-empty. If the operator is
-                                                  Exists or DoesNotExist, the values
-                                                  array must be empty. This array
-                                                  is replaced during a strategic merge
-                                                  patch.
                                                 items:
                                                   type: string
                                                 type: array
@@ -733,34 +521,13 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     namespaces:
-                                      description: namespaces specifies a static list
-                                        of namespace names that the term applies to.
-                                        The term is applied to the union of the namespaces
-                                        listed in this field and the ones selected
-                                        by namespaceSelector. null or empty namespaces
-                                        list and null namespaceSelector means "this
-                                        pod's namespace".
                                       items:
                                         type: string
                                       type: array
                                     topologyKey:
-                                      description: This pod should be co-located (affinity)
-                                        or not co-located (anti-affinity) with the
-                                        pods matching the labelSelector in the specified
-                                        namespaces, where co-located is defined as
-                                        running on a node whose value of the label
-                                        with key topologyKey matches that of any node
-                                        on which any of the selected pods is running.
-                                        Empty topologyKey is not allowed.
                                       type: string
                                   required:
                                   - topologyKey
@@ -776,23 +543,7 @@ spec:
                               type: object
                             type: array
                           requiredDuringSchedulingIgnoredDuringExecution:
-                            description: If the anti-affinity requirements specified
-                              by this field are not met at scheduling time, the pod
-                              will not be scheduled onto the node. If the anti-affinity
-                              requirements specified by this field cease to be met
-                              at some point during pod execution (e.g. due to a pod
-                              label update), the system may or may not try to eventually
-                              evict the pod from its node. When there are multiple
-                              elements, the lists of nodes corresponding to each podAffinityTerm
-                              are intersected, i.e. all terms must be satisfied.
                             items:
-                              description: Defines a set of pods (namely those matching
-                                the labelSelector relative to the given namespace(s))
-                                that this pod should be co-located (affinity) or not
-                                co-located (anti-affinity) with, where co-located
-                                is defined as running on a node whose value of the
-                                label with key <topologyKey> matches that of any node
-                                on which a pod of the set of pods is running
                               properties:
                                 labelSelector:
                                   description: A label query over a set of resources,
@@ -819,13 +570,6 @@ spec:
                                               DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -837,22 +581,9 @@ spec:
                                     matchLabels:
                                       additionalProperties:
                                         type: string
-                                      description: matchLabels is a map of {key,value}
-                                        pairs. A single {key,value} in the matchLabels
-                                        map is equivalent to an element of matchExpressions,
-                                        whose key field is "key", the operator is
-                                        "In", and the values array contains only "value".
-                                        The requirements are ANDed.
                                       type: object
                                   type: object
                                 namespaceSelector:
-                                  description: A label query over the set of namespaces
-                                    that the term applies to. The term is applied
-                                    to the union of the namespaces selected by this
-                                    field and the ones listed in the namespaces field.
-                                    null selector and null or empty namespaces list
-                                    means "this pod's namespace". An empty selector
-                                    ({}) matches all namespaces.
                                   properties:
                                     matchExpressions:
                                       description: matchExpressions is a list of label
@@ -875,13 +606,6 @@ spec:
                                               DoesNotExist.
                                             type: string
                                           values:
-                                            description: values is an array of string
-                                              values. If the operator is In or NotIn,
-                                              the values array must be non-empty.
-                                              If the operator is Exists or DoesNotExist,
-                                              the values array must be empty. This
-                                              array is replaced during a strategic
-                                              merge patch.
                                             items:
                                               type: string
                                             type: array
@@ -912,13 +636,6 @@ spec:
                                     type: string
                                   type: array
                                 topologyKey:
-                                  description: This pod should be co-located (affinity)
-                                    or not co-located (anti-affinity) with the pods
-                                    matching the labelSelector in the specified namespaces,
-                                    where co-located is defined as running on a node
-                                    whose value of the label with key topologyKey
-                                    matches that of any node on which any of the selected
-                                    pods is running. Empty topologyKey is not allowed.
                                   type: string
                               required:
                               - topologyKey
@@ -937,13 +654,6 @@ spec:
                       the values in SecurityContext take precedence.
                     properties:
                       allowPrivilegeEscalation:
-                        description: 'AllowPrivilegeEscalation controls whether a
-                          process can gain more privileges than its parent process.
-                          This bool directly controls if the no_new_privs flag will
-                          be set on the container process. AllowPrivilegeEscalation
-                          is true always when the container is: 1) run as Privileged
-                          2) has CAP_SYS_ADMIN Note that this field cannot be set
-                          when spec.os.name is windows.'
                         type: boolean
                       capabilities:
                         description: The capabilities to add/drop when running containers.
@@ -967,18 +677,8 @@ spec:
                             type: array
                         type: object
                       privileged:
-                        description: Run container in privileged mode. Processes in
-                          privileged containers are essentially equivalent to root
-                          on the host. Defaults to false. Note that this field cannot
-                          be set when spec.os.name is windows.
                         type: boolean
                       procMount:
-                        description: procMount denotes the type of proc mount to use
-                          for the containers. The default is DefaultProcMount which
-                          uses the container runtime defaults for readonly paths and
-                          masked paths. This requires the ProcMountType feature flag
-                          to be enabled. Note that this field cannot be set when spec.os.name
-                          is windows.
                         type: string
                       readOnlyRootFilesystem:
                         description: Whether this container has a read-only root filesystem.
@@ -986,40 +686,14 @@ spec:
                           spec.os.name is windows.
                         type: boolean
                       runAsGroup:
-                        description: The GID to run the entrypoint of the container
-                          process. Uses runtime default if unset. May also be set
-                          in PodSecurityContext.  If set in both SecurityContext and
-                          PodSecurityContext, the value specified in SecurityContext
-                          takes precedence. Note that this field cannot be set when
-                          spec.os.name is windows.
                         format: int64
                         type: integer
                       runAsNonRoot:
-                        description: Indicates that the container must run as a non-root
-                          user. If true, the Kubelet will validate the image at runtime
-                          to ensure that it does not run as UID 0 (root) and fail
-                          to start the container if it does. If unset or false, no
-                          such validation will be performed. May also be set in PodSecurityContext.  If
-                          set in both SecurityContext and PodSecurityContext, the
-                          value specified in SecurityContext takes precedence.
                         type: boolean
                       runAsUser:
-                        description: The UID to run the entrypoint of the container
-                          process. Defaults to user specified in image metadata if
-                          unspecified. May also be set in PodSecurityContext.  If
-                          set in both SecurityContext and PodSecurityContext, the
-                          value specified in SecurityContext takes precedence. Note
-                          that this field cannot be set when spec.os.name is windows.
                         format: int64
                         type: integer
                       seLinuxOptions:
-                        description: The SELinux context to be applied to the container.
-                          If unspecified, the container runtime will allocate a random
-                          SELinux context for each container.  May also be set in
-                          PodSecurityContext.  If set in both SecurityContext and
-                          PodSecurityContext, the value specified in SecurityContext
-                          takes precedence. Note that this field cannot be set when
-                          spec.os.name is windows.
                         properties:
                           level:
                             description: Level is SELinux level label that applies
@@ -1039,35 +713,15 @@ spec:
                             type: string
                         type: object
                       seccompProfile:
-                        description: The seccomp options to use by this container.
-                          If seccomp options are provided at both the pod & container
-                          level, the container options override the pod options. Note
-                          that this field cannot be set when spec.os.name is windows.
                         properties:
                           localhostProfile:
-                            description: localhostProfile indicates a profile defined
-                              in a file on the node should be used. The profile must
-                              be preconfigured on the node to work. Must be a descending
-                              path, relative to the kubelet's configured seccomp profile
-                              location. Must only be set if type is "Localhost".
                             type: string
                           type:
-                            description: "type indicates which kind of seccomp profile
-                              will be applied. Valid options are: \n Localhost - a
-                              profile defined in a file on the node should be used.
-                              RuntimeDefault - the container runtime default profile
-                              should be used. Unconfined - no profile should be applied."
                             type: string
                         required:
                         - type
                         type: object
                       windowsOptions:
-                        description: The Windows specific settings applied to all
-                          containers. If unspecified, the options from the PodSecurityContext
-                          will be used. If set in both SecurityContext and PodSecurityContext,
-                          the value specified in SecurityContext takes precedence.
-                          Note that this field cannot be set when spec.os.name is
-                          linux.
                         properties:
                           gmsaCredentialSpec:
                             description: GMSACredentialSpec is where the GMSA admission
@@ -1080,24 +734,8 @@ spec:
                               GMSA credential spec to use.
                             type: string
                           hostProcess:
-                            description: HostProcess determines if a container should
-                              be run as a 'Host Process' container. This field is
-                              alpha-level and will only be honored by components that
-                              enable the WindowsHostProcessContainers feature flag.
-                              Setting this field without the feature flag will result
-                              in errors when validating the Pod. All of a Pod's containers
-                              must have the same effective HostProcess value (it is
-                              not allowed to have a mix of HostProcess containers
-                              and non-HostProcess containers).  In addition, if HostProcess
-                              is true then HostNetwork must also be set to true.
                             type: boolean
                           runAsUserName:
-                            description: The UserName in Windows to run the entrypoint
-                              of the container process. Defaults to the user specified
-                              in image metadata if unspecified. May also be set in
-                              PodSecurityContext. If set in both SecurityContext and
-                              PodSecurityContext, the value specified in SecurityContext
-                              takes precedence.
                             type: string
                         type: object
                     type: object
@@ -1128,10 +766,6 @@ spec:
                           type: string
                         type: array
                       containerSecurityContext:
-                        description: SecurityContext holds security configuration
-                          that will be applied to a container. Some fields are present
-                          in both SecurityContext and PodSecurityContext.  When both
-                          are set, the values in SecurityContext take precedence.
                         properties:
                           allowPrivilegeEscalation:
                             description: 'AllowPrivilegeEscalation controls whether
@@ -1170,12 +804,6 @@ spec:
                               field cannot be set when spec.os.name is windows.
                             type: boolean
                           procMount:
-                            description: procMount denotes the type of proc mount
-                              to use for the containers. The default is DefaultProcMount
-                              which uses the container runtime defaults for readonly
-                              paths and masked paths. This requires the ProcMountType
-                              feature flag to be enabled. Note that this field cannot
-                              be set when spec.os.name is windows.
                             type: string
                           readOnlyRootFilesystem:
                             description: Whether this container has a read-only root
@@ -1192,33 +820,11 @@ spec:
                             format: int64
                             type: integer
                           runAsNonRoot:
-                            description: Indicates that the container must run as
-                              a non-root user. If true, the Kubelet will validate
-                              the image at runtime to ensure that it does not run
-                              as UID 0 (root) and fail to start the container if it
-                              does. If unset or false, no such validation will be
-                              performed. May also be set in PodSecurityContext.  If
-                              set in both SecurityContext and PodSecurityContext,
-                              the value specified in SecurityContext takes precedence.
                             type: boolean
                           runAsUser:
-                            description: The UID to run the entrypoint of the container
-                              process. Defaults to user specified in image metadata
-                              if unspecified. May also be set in PodSecurityContext.  If
-                              set in both SecurityContext and PodSecurityContext,
-                              the value specified in SecurityContext takes precedence.
-                              Note that this field cannot be set when spec.os.name
-                              is windows.
                             format: int64
                             type: integer
                           seLinuxOptions:
-                            description: The SELinux context to be applied to the
-                              container. If unspecified, the container runtime will
-                              allocate a random SELinux context for each container.  May
-                              also be set in PodSecurityContext.  If set in both SecurityContext
-                              and PodSecurityContext, the value specified in SecurityContext
-                              takes precedence. Note that this field cannot be set
-                              when spec.os.name is windows.
                             properties:
                               level:
                                 description: Level is SELinux level label that applies
@@ -1245,62 +851,23 @@ spec:
                               is windows.
                             properties:
                               localhostProfile:
-                                description: localhostProfile indicates a profile
-                                  defined in a file on the node should be used. The
-                                  profile must be preconfigured on the node to work.
-                                  Must be a descending path, relative to the kubelet's
-                                  configured seccomp profile location. Must only be
-                                  set if type is "Localhost".
                                 type: string
                               type:
-                                description: "type indicates which kind of seccomp
-                                  profile will be applied. Valid options are: \n Localhost
-                                  - a profile defined in a file on the node should
-                                  be used. RuntimeDefault - the container runtime
-                                  default profile should be used. Unconfined - no
-                                  profile should be applied."
                                 type: string
                             required:
                             - type
                             type: object
                           windowsOptions:
-                            description: The Windows specific settings applied to
-                              all containers. If unspecified, the options from the
-                              PodSecurityContext will be used. If set in both SecurityContext
-                              and PodSecurityContext, the value specified in SecurityContext
-                              takes precedence. Note that this field cannot be set
-                              when spec.os.name is linux.
                             properties:
                               gmsaCredentialSpec:
-                                description: GMSACredentialSpec is where the GMSA
-                                  admission webhook (https://github.com/kubernetes-sigs/windows-gmsa)
-                                  inlines the contents of the GMSA credential spec
-                                  named by the GMSACredentialSpecName field.
                                 type: string
                               gmsaCredentialSpecName:
                                 description: GMSACredentialSpecName is the name of
                                   the GMSA credential spec to use.
                                 type: string
                               hostProcess:
-                                description: HostProcess determines if a container
-                                  should be run as a 'Host Process' container. This
-                                  field is alpha-level and will only be honored by
-                                  components that enable the WindowsHostProcessContainers
-                                  feature flag. Setting this field without the feature
-                                  flag will result in errors when validating the Pod.
-                                  All of a Pod's containers must have the same effective
-                                  HostProcess value (it is not allowed to have a mix
-                                  of HostProcess containers and non-HostProcess containers).  In
-                                  addition, if HostProcess is true then HostNetwork
-                                  must also be set to true.
                                 type: boolean
                               runAsUserName:
-                                description: The UserName in Windows to run the entrypoint
-                                  of the container process. Defaults to the user specified
-                                  in image metadata if unspecified. May also be set
-                                  in PodSecurityContext. If set in both SecurityContext
-                                  and PodSecurityContext, the value specified in SecurityContext
-                                  takes precedence.
                                 type: string
                             type: object
                         type: object
@@ -1316,16 +883,6 @@ spec:
                                 be a C_IDENTIFIER.
                               type: string
                             value:
-                              description: 'Variable references $(VAR_NAME) are expanded
-                                using the previously defined environment variables
-                                in the container and any service environment variables.
-                                If a variable cannot be resolved, the reference in
-                                the input string will be unchanged. Double $$ are
-                                reduced to a single $, which allows for escaping the
-                                $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)" will produce
-                                the string literal "$(VAR_NAME)". Escaped references
-                                will never be expanded, regardless of whether the
-                                variable exists or not. Defaults to "".'
                               type: string
                             valueFrom:
                               description: Source for the environment variable's value.
@@ -1460,31 +1017,10 @@ spec:
                         run within a pod.
                       properties:
                         args:
-                          description: 'Arguments to the entrypoint. The container
-                            image''s CMD is used if this is not provided. Variable
-                            references $(VAR_NAME) are expanded using the container''s
-                            environment. If a variable cannot be resolved, the reference
-                            in the input string will be unchanged. Double $$ are reduced
-                            to a single $, which allows for escaping the $(VAR_NAME)
-                            syntax: i.e. "$$(VAR_NAME)" will produce the string literal
-                            "$(VAR_NAME)". Escaped references will never be expanded,
-                            regardless of whether the variable exists or not. Cannot
-                            be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell'
                           items:
                             type: string
                           type: array
                         command:
-                          description: 'Entrypoint array. Not executed within a shell.
-                            The container image''s ENTRYPOINT is used if this is not
-                            provided. Variable references $(VAR_NAME) are expanded
-                            using the container''s environment. If a variable cannot
-                            be resolved, the reference in the input string will be
-                            unchanged. Double $$ are reduced to a single $, which
-                            allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)"
-                            will produce the string literal "$(VAR_NAME)". Escaped
-                            references will never be expanded, regardless of whether
-                            the variable exists or not. Cannot be updated. More info:
-                            https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell'
                           items:
                             type: string
                           type: array
@@ -1500,17 +1036,6 @@ spec:
                                   be a C_IDENTIFIER.
                                 type: string
                               value:
-                                description: 'Variable references $(VAR_NAME) are
-                                  expanded using the previously defined environment
-                                  variables in the container and any service environment
-                                  variables. If a variable cannot be resolved, the
-                                  reference in the input string will be unchanged.
-                                  Double $$ are reduced to a single $, which allows
-                                  for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)"
-                                  will produce the string literal "$(VAR_NAME)". Escaped
-                                  references will never be expanded, regardless of
-                                  whether the variable exists or not. Defaults to
-                                  "".'
                                 type: string
                               valueFrom:
                                 description: Source for the environment variable's
@@ -1536,11 +1061,6 @@ spec:
                                     - key
                                     type: object
                                   fieldRef:
-                                    description: 'Selects a field of the pod: supports
-                                      metadata.name, metadata.namespace, `metadata.labels[''<KEY>'']`,
-                                      `metadata.annotations[''<KEY>'']`, spec.nodeName,
-                                      spec.serviceAccountName, status.hostIP, status.podIP,
-                                      status.podIPs.'
                                     properties:
                                       apiVersion:
                                         description: Version of the schema the FieldPath
@@ -1554,11 +1074,6 @@ spec:
                                     - fieldPath
                                     type: object
                                   resourceFieldRef:
-                                    description: 'Selects a resource of the container:
-                                      only resources limits and requests (limits.cpu,
-                                      limits.memory, limits.ephemeral-storage, requests.cpu,
-                                      requests.memory and requests.ephemeral-storage)
-                                      are currently supported.'
                                     properties:
                                       containerName:
                                         description: 'Container name: required for
@@ -1605,13 +1120,6 @@ spec:
                             type: object
                           type: array
                         envFrom:
-                          description: List of sources to populate environment variables
-                            in the container. The keys defined within a source must
-                            be a C_IDENTIFIER. All invalid keys will be reported as
-                            an event when the container is starting. When a key exists
-                            in multiple sources, the value associated with the last
-                            source will take precedence. Values defined by an Env
-                            with a duplicate key will take precedence. Cannot be updated.
                           items:
                             description: EnvFromSource represents the source of a
                               set of ConfigMaps
@@ -1676,15 +1184,6 @@ spec:
                                   description: Exec specifies the action to take.
                                   properties:
                                     command:
-                                      description: Command is the command line to
-                                        execute inside the container, the working
-                                        directory for the command  is root ('/') in
-                                        the container's filesystem. The command is
-                                        simply exec'd, it is not run inside a shell,
-                                        so traditional shell instructions ('|', etc)
-                                        won't work. To use a shell, you need to explicitly
-                                        call out to that shell. Exit status of 0 is
-                                        treated as live/healthy and non-zero is unhealthy.
                                       items:
                                         type: string
                                       type: array
@@ -1758,32 +1257,11 @@ spec:
                                   type: object
                               type: object
                             preStop:
-                              description: 'PreStop is called immediately before a
-                                container is terminated due to an API request or management
-                                event such as liveness/startup probe failure, preemption,
-                                resource contention, etc. The handler is not called
-                                if the container crashes or exits. The Pod''s termination
-                                grace period countdown begins before the PreStop hook
-                                is executed. Regardless of the outcome of the handler,
-                                the container will eventually terminate within the
-                                Pod''s termination grace period (unless delayed by
-                                finalizers). Other management of the container blocks
-                                until the hook completes or until the termination
-                                grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks'
                               properties:
                                 exec:
                                   description: Exec specifies the action to take.
                                   properties:
                                     command:
-                                      description: Command is the command line to
-                                        execute inside the container, the working
-                                        directory for the command  is root ('/') in
-                                        the container's filesystem. The command is
-                                        simply exec'd, it is not run inside a shell,
-                                        so traditional shell instructions ('|', etc)
-                                        won't work. To use a shell, you need to explicitly
-                                        call out to that shell. Exit status of 0 is
-                                        treated as live/healthy and non-zero is unhealthy.
                                       items:
                                         type: string
                                       type: array
@@ -1834,11 +1312,6 @@ spec:
                                   - port
                                   type: object
                                 tcpSocket:
-                                  description: Deprecated. TCPSocket is NOT supported
-                                    as a LifecycleHandler and kept for the backward
-                                    compatibility. There are no validation of this
-                                    field and lifecycle hooks will fail in runtime
-                                    when tcp handler is specified.
                                   properties:
                                     host:
                                       description: 'Optional: Host name to connect
@@ -1866,15 +1339,6 @@ spec:
                               description: Exec specifies the action to take.
                               properties:
                                 command:
-                                  description: Command is the command line to execute
-                                    inside the container, the working directory for
-                                    the command  is root ('/') in the container's
-                                    filesystem. The command is simply exec'd, it is
-                                    not run inside a shell, so traditional shell instructions
-                                    ('|', etc) won't work. To use a shell, you need
-                                    to explicitly call out to that shell. Exit status
-                                    of 0 is treated as live/healthy and non-zero is
-                                    unhealthy.
                                   items:
                                     type: string
                                   type: array
@@ -1986,21 +1450,6 @@ spec:
                               - port
                               type: object
                             terminationGracePeriodSeconds:
-                              description: Optional duration in seconds the pod needs
-                                to terminate gracefully upon probe failure. The grace
-                                period is the duration in seconds after the processes
-                                running in the pod are sent a termination signal and
-                                the time when the processes are forcibly halted with
-                                a kill signal. Set this value longer than the expected
-                                cleanup time for your process. If this value is nil,
-                                the pod's terminationGracePeriodSeconds will be used.
-                                Otherwise, this value overrides the value provided
-                                by the pod spec. Value must be non-negative integer.
-                                The value zero indicates stop immediately via the
-                                kill signal (no opportunity to shut down). This is
-                                a beta field and requires enabling ProbeTerminationGracePeriod
-                                feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds
-                                is used if unset.
                               format: int64
                               type: integer
                             timeoutSeconds:
@@ -2016,14 +1465,6 @@ spec:
                             Cannot be updated.
                           type: string
                         ports:
-                          description: List of ports to expose from the container.
-                            Exposing a port here gives the system additional information
-                            about the network connections a container uses, but is
-                            primarily informational. Not specifying a port here DOES
-                            NOT prevent that port from being exposed. Any port which
-                            is listening on the default "0.0.0.0" address inside a
-                            container will be accessible from the network. Cannot
-                            be updated.
                           items:
                             description: ContainerPort represents a network port in
                               a single container.
@@ -2074,15 +1515,6 @@ spec:
                               description: Exec specifies the action to take.
                               properties:
                                 command:
-                                  description: Command is the command line to execute
-                                    inside the container, the working directory for
-                                    the command  is root ('/') in the container's
-                                    filesystem. The command is simply exec'd, it is
-                                    not run inside a shell, so traditional shell instructions
-                                    ('|', etc) won't work. To use a shell, you need
-                                    to explicitly call out to that shell. Exit status
-                                    of 0 is treated as live/healthy and non-zero is
-                                    unhealthy.
                                   items:
                                     type: string
                                   type: array
@@ -2194,21 +1626,6 @@ spec:
                               - port
                               type: object
                             terminationGracePeriodSeconds:
-                              description: Optional duration in seconds the pod needs
-                                to terminate gracefully upon probe failure. The grace
-                                period is the duration in seconds after the processes
-                                running in the pod are sent a termination signal and
-                                the time when the processes are forcibly halted with
-                                a kill signal. Set this value longer than the expected
-                                cleanup time for your process. If this value is nil,
-                                the pod's terminationGracePeriodSeconds will be used.
-                                Otherwise, this value overrides the value provided
-                                by the pod spec. Value must be non-negative integer.
-                                The value zero indicates stop immediately via the
-                                kill signal (no opportunity to shut down). This is
-                                a beta field and requires enabling ProbeTerminationGracePeriod
-                                feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds
-                                is used if unset.
                               format: int64
                               type: integer
                             timeoutSeconds:
@@ -2253,13 +1670,6 @@ spec:
                             More info: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/'
                           properties:
                             allowPrivilegeEscalation:
-                              description: 'AllowPrivilegeEscalation controls whether
-                                a process can gain more privileges than its parent
-                                process. This bool directly controls if the no_new_privs
-                                flag will be set on the container process. AllowPrivilegeEscalation
-                                is true always when the container is: 1) run as Privileged
-                                2) has CAP_SYS_ADMIN Note that this field cannot be
-                                set when spec.os.name is windows.'
                               type: boolean
                             capabilities:
                               description: The capabilities to add/drop when running
@@ -2283,18 +1693,8 @@ spec:
                                   type: array
                               type: object
                             privileged:
-                              description: Run container in privileged mode. Processes
-                                in privileged containers are essentially equivalent
-                                to root on the host. Defaults to false. Note that
-                                this field cannot be set when spec.os.name is windows.
                               type: boolean
                             procMount:
-                              description: procMount denotes the type of proc mount
-                                to use for the containers. The default is DefaultProcMount
-                                which uses the container runtime defaults for readonly
-                                paths and masked paths. This requires the ProcMountType
-                                feature flag to be enabled. Note that this field cannot
-                                be set when spec.os.name is windows.
                               type: string
                             readOnlyRootFilesystem:
                               description: Whether this container has a read-only
@@ -2311,23 +1711,8 @@ spec:
                               format: int64
                               type: integer
                             runAsNonRoot:
-                              description: Indicates that the container must run as
-                                a non-root user. If true, the Kubelet will validate
-                                the image at runtime to ensure that it does not run
-                                as UID 0 (root) and fail to start the container if
-                                it does. If unset or false, no such validation will
-                                be performed. May also be set in PodSecurityContext.  If
-                                set in both SecurityContext and PodSecurityContext,
-                                the value specified in SecurityContext takes precedence.
                               type: boolean
                             runAsUser:
-                              description: The UID to run the entrypoint of the container
-                                process. Defaults to user specified in image metadata
-                                if unspecified. May also be set in PodSecurityContext.  If
-                                set in both SecurityContext and PodSecurityContext,
-                                the value specified in SecurityContext takes precedence.
-                                Note that this field cannot be set when spec.os.name
-                                is windows.
                               format: int64
                               type: integer
                             seLinuxOptions:
@@ -2358,19 +1743,8 @@ spec:
                                   type: string
                               type: object
                             seccompProfile:
-                              description: The seccomp options to use by this container.
-                                If seccomp options are provided at both the pod &
-                                container level, the container options override the
-                                pod options. Note that this field cannot be set when
-                                spec.os.name is windows.
                               properties:
                                 localhostProfile:
-                                  description: localhostProfile indicates a profile
-                                    defined in a file on the node should be used.
-                                    The profile must be preconfigured on the node
-                                    to work. Must be a descending path, relative to
-                                    the kubelet's configured seccomp profile location.
-                                    Must only be set if type is "Localhost".
                                   type: string
                                 type:
                                   description: "type indicates which kind of seccomp
@@ -2402,52 +1776,17 @@ spec:
                                     of the GMSA credential spec to use.
                                   type: string
                                 hostProcess:
-                                  description: HostProcess determines if a container
-                                    should be run as a 'Host Process' container. This
-                                    field is alpha-level and will only be honored
-                                    by components that enable the WindowsHostProcessContainers
-                                    feature flag. Setting this field without the feature
-                                    flag will result in errors when validating the
-                                    Pod. All of a Pod's containers must have the same
-                                    effective HostProcess value (it is not allowed
-                                    to have a mix of HostProcess containers and non-HostProcess
-                                    containers).  In addition, if HostProcess is true
-                                    then HostNetwork must also be set to true.
                                   type: boolean
                                 runAsUserName:
-                                  description: The UserName in Windows to run the
-                                    entrypoint of the container process. Defaults
-                                    to the user specified in image metadata if unspecified.
-                                    May also be set in PodSecurityContext. If set
-                                    in both SecurityContext and PodSecurityContext,
-                                    the value specified in SecurityContext takes precedence.
                                   type: string
                               type: object
                           type: object
                         startupProbe:
-                          description: 'StartupProbe indicates that the Pod has successfully
-                            initialized. If specified, no other probes are executed
-                            until this completes successfully. If this probe fails,
-                            the Pod will be restarted, just as if the livenessProbe
-                            failed. This can be used to provide different probe parameters
-                            at the beginning of a Pod''s lifecycle, when it might
-                            take a long time to load data or warm a cache, than during
-                            steady-state operation. This cannot be updated. More info:
-                            https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes'
                           properties:
                             exec:
                               description: Exec specifies the action to take.
                               properties:
                                 command:
-                                  description: Command is the command line to execute
-                                    inside the container, the working directory for
-                                    the command  is root ('/') in the container's
-                                    filesystem. The command is simply exec'd, it is
-                                    not run inside a shell, so traditional shell instructions
-                                    ('|', etc) won't work. To use a shell, you need
-                                    to explicitly call out to that shell. Exit status
-                                    of 0 is treated as live/healthy and non-zero is
-                                    unhealthy.
                                   items:
                                     type: string
                                   type: array
@@ -2559,21 +1898,6 @@ spec:
                               - port
                               type: object
                             terminationGracePeriodSeconds:
-                              description: Optional duration in seconds the pod needs
-                                to terminate gracefully upon probe failure. The grace
-                                period is the duration in seconds after the processes
-                                running in the pod are sent a termination signal and
-                                the time when the processes are forcibly halted with
-                                a kill signal. Set this value longer than the expected
-                                cleanup time for your process. If this value is nil,
-                                the pod's terminationGracePeriodSeconds will be used.
-                                Otherwise, this value overrides the value provided
-                                by the pod spec. Value must be non-negative integer.
-                                The value zero indicates stop immediately via the
-                                kill signal (no opportunity to shut down). This is
-                                a beta field and requires enabling ProbeTerminationGracePeriod
-                                feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds
-                                is used if unset.
                               format: int64
                               type: integer
                             timeoutSeconds:
@@ -2590,37 +1914,10 @@ spec:
                             EOF. Default is false.
                           type: boolean
                         stdinOnce:
-                          description: Whether the container runtime should close
-                            the stdin channel after it has been opened by a single
-                            attach. When stdin is true the stdin stream will remain
-                            open across multiple attach sessions. If stdinOnce is
-                            set to true, stdin is opened on container start, is empty
-                            until the first client attaches to stdin, and then remains
-                            open and accepts data until the client disconnects, at
-                            which time stdin is closed and remains closed until the
-                            container is restarted. If this flag is false, a container
-                            processes that reads from stdin will never receive an
-                            EOF. Default is false
                           type: boolean
                         terminationMessagePath:
-                          description: 'Optional: Path at which the file to which
-                            the container''s termination message will be written is
-                            mounted into the container''s filesystem. Message written
-                            is intended to be brief final status, such as an assertion
-                            failure message. Will be truncated by the node if greater
-                            than 4096 bytes. The total message length across all containers
-                            will be limited to 12kb. Defaults to /dev/termination-log.
-                            Cannot be updated.'
                           type: string
                         terminationMessagePolicy:
-                          description: Indicate how the termination message should
-                            be populated. File will use the contents of terminationMessagePath
-                            to populate the container status message on both success
-                            and failure. FallbackToLogsOnError will use the last chunk
-                            of container log output if the termination message file
-                            is empty and the container exited with an error. The log
-                            output is limited to 2048 bytes or 80 lines, whichever
-                            is smaller. Defaults to File. Cannot be updated.
                           type: string
                         tty:
                           description: Whether this container should allocate a TTY
@@ -2912,29 +2209,9 @@ spec:
                             populate this volume
                           properties:
                             defaultMode:
-                              description: 'defaultMode is optional: mode bits used
-                                to set permissions on created files by default. Must
-                                be an octal value between 0000 and 0777 or a decimal
-                                value between 0 and 511. YAML accepts both octal and
-                                decimal values, JSON requires decimal values for mode
-                                bits. Defaults to 0644. Directories within the path
-                                are not affected by this setting. This might be in
-                                conflict with other options that affect the file mode,
-                                like fsGroup, and the result can be other mode bits
-                                set.'
                               format: int32
                               type: integer
                             items:
-                              description: items if unspecified, each key-value pair
-                                in the Data field of the referenced ConfigMap will
-                                be projected into the volume as a file whose name
-                                is the key and content is the value. If specified,
-                                the listed keys will be projected into the specified
-                                paths, and unlisted keys will not be present. If a
-                                key is specified which is not present in the ConfigMap,
-                                the volume setup will error unless it is marked optional.
-                                Paths must be relative and may not contain the '..'
-                                path or start with '..'.
                               items:
                                 description: Maps a string key to a path within a
                                   volume.
@@ -2943,16 +2220,6 @@ spec:
                                     description: key is the key to project.
                                     type: string
                                   mode:
-                                    description: 'mode is Optional: mode bits used
-                                      to set permissions on this file. Must be an
-                                      octal value between 0000 and 0777 or a decimal
-                                      value between 0 and 511. YAML accepts both octal
-                                      and decimal values, JSON requires decimal values
-                                      for mode bits. If not specified, the volume
-                                      defaultMode will be used. This might be in conflict
-                                      with other options that affect the file mode,
-                                      like fsGroup, and the result can be other mode
-                                      bits set.'
                                     format: int32
                                     type: integer
                                   path:
@@ -3025,17 +2292,6 @@ spec:
                             pod that should populate this volume
                           properties:
                             defaultMode:
-                              description: 'Optional: mode bits to use on created
-                                files by default. Must be a Optional: mode bits used
-                                to set permissions on created files by default. Must
-                                be an octal value between 0000 and 0777 or a decimal
-                                value between 0 and 511. YAML accepts both octal and
-                                decimal values, JSON requires decimal values for mode
-                                bits. Defaults to 0644. Directories within the path
-                                are not affected by this setting. This might be in
-                                conflict with other options that affect the file mode,
-                                like fsGroup, and the result can be other mode bits
-                                set.'
                               format: int32
                               type: integer
                             items:
@@ -3062,16 +2318,6 @@ spec:
                                     - fieldPath
                                     type: object
                                   mode:
-                                    description: 'Optional: mode bits used to set
-                                      permissions on this file, must be an octal value
-                                      between 0000 and 0777 or a decimal value between
-                                      0 and 511. YAML accepts both octal and decimal
-                                      values, JSON requires decimal values for mode
-                                      bits. If not specified, the volume defaultMode
-                                      will be used. This might be in conflict with
-                                      other options that affect the file mode, like
-                                      fsGroup, and the result can be other mode bits
-                                      set.'
                                     format: int32
                                     type: integer
                                   path:
@@ -3082,10 +2328,6 @@ spec:
                                       path must not start with ''..'''
                                     type: string
                                   resourceFieldRef:
-                                    description: 'Selects a resource of the container:
-                                      only resources limits and requests (limits.cpu,
-                                      limits.memory, requests.cpu and requests.memory)
-                                      are currently supported.'
                                     properties:
                                       containerName:
                                         description: 'Container name: required for
@@ -3137,47 +2379,8 @@ spec:
                               x-kubernetes-int-or-string: true
                           type: object
                         ephemeral:
-                          description: "ephemeral represents a volume that is handled
-                            by a cluster storage driver. The volume's lifecycle is
-                            tied to the pod that defines it - it will be created before
-                            the pod starts, and deleted when the pod is removed. \n
-                            Use this if: a) the volume is only needed while the pod
-                            runs, b) features of normal volumes like restoring from
-                            snapshot or capacity    tracking are needed, c) the storage
-                            driver is specified through a storage class, and d) the
-                            storage driver supports dynamic volume provisioning through
-                            \   a PersistentVolumeClaim (see EphemeralVolumeSource
-                            for more    information on the connection between this
-                            volume type    and PersistentVolumeClaim). \n Use PersistentVolumeClaim
-                            or one of the vendor-specific APIs for volumes that persist
-                            for longer than the lifecycle of an individual pod. \n
-                            Use CSI for light-weight local ephemeral volumes if the
-                            CSI driver is meant to be used that way - see the documentation
-                            of the driver for more information. \n A pod can use both
-                            types of ephemeral volumes and persistent volumes at the
-                            same time."
                           properties:
                             volumeClaimTemplate:
-                              description: "Will be used to create a stand-alone PVC
-                                to provision the volume. The pod in which this EphemeralVolumeSource
-                                is embedded will be the owner of the PVC, i.e. the
-                                PVC will be deleted together with the pod.  The name
-                                of the PVC will be `<pod name>-<volume name>` where
-                                `<volume name>` is the name from the `PodSpec.Volumes`
-                                array entry. Pod validation will reject the pod if
-                                the concatenated name is not valid for a PVC (for
-                                example, too long). \n An existing PVC with that name
-                                that is not owned by the pod will *not* be used for
-                                the pod to avoid using an unrelated volume by mistake.
-                                Starting the pod is then blocked until the unrelated
-                                PVC is removed. If such a pre-created PVC is meant
-                                to be used by the pod, the PVC has to updated with
-                                an owner reference to the pod once the pod exists.
-                                Normally this should not be necessary, but it may
-                                be useful when manually reconstructing a broken cluster.
-                                \n This field is read-only and no changes will be
-                                made by Kubernetes to the PVC after it has been created.
-                                \n Required, must not be nil."
                               properties:
                                 metadata:
                                   description: May contain labels and annotations
@@ -3232,32 +2435,6 @@ spec:
                                       - name
                                       type: object
                                     dataSourceRef:
-                                      description: 'dataSourceRef specifies the object
-                                        from which to populate the volume with data,
-                                        if a non-empty volume is desired. This may
-                                        be any local object from a non-empty API group
-                                        (non core object) or a PersistentVolumeClaim
-                                        object. When this field is specified, volume
-                                        binding will only succeed if the type of the
-                                        specified object matches some installed volume
-                                        populator or dynamic provisioner. This field
-                                        will replace the functionality of the DataSource
-                                        field and as such if both fields are non-empty,
-                                        they must have the same value. For backwards
-                                        compatibility, both fields (DataSource and
-                                        DataSourceRef) will be set to the same value
-                                        automatically if one of them is empty and
-                                        the other is non-empty. There are two important
-                                        differences between DataSource and DataSourceRef:
-                                        * While DataSource only allows two specific
-                                        types of objects, DataSourceRef   allows any
-                                        non-core object, as well as PersistentVolumeClaim
-                                        objects. * While DataSource ignores disallowed
-                                        values (dropping them), DataSourceRef   preserves
-                                        all values, and generates an error if a disallowed
-                                        value is   specified. (Beta) Using this field
-                                        requires the AnyVolumeDataSource feature gate
-                                        to be enabled.'
                                       properties:
                                         apiGroup:
                                           description: APIGroup is the group for the
@@ -3338,14 +2515,6 @@ spec:
                                                   and DoesNotExist.
                                                 type: string
                                               values:
-                                                description: values is an array of
-                                                  string values. If the operator is
-                                                  In or NotIn, the values array must
-                                                  be non-empty. If the operator is
-                                                  Exists or DoesNotExist, the values
-                                                  array must be empty. This array
-                                                  is replaced during a strategic merge
-                                                  patch.
                                                 items:
                                                   type: string
                                                 type: array
@@ -3559,15 +2728,6 @@ spec:
                           - path
                           type: object
                         hostPath:
-                          description: 'hostPath represents a pre-existing file or
-                            directory on the host machine that is directly exposed
-                            to the container. This is generally used for system agents
-                            or other privileged things that are allowed to see the
-                            host machine. Most containers will NOT need this. More
-                            info: https://kubernetes.io/docs/concepts/storage/volumes#hostpath
-                            --- TODO(jonesdl) We need to restrict who can use host
-                            directory mounts and who can/can not mount host directories
-                            as read/write.'
                           properties:
                             path:
                               description: 'path of the directory on the host. If
@@ -3739,15 +2899,6 @@ spec:
                             configmaps, and downward API
                           properties:
                             defaultMode:
-                              description: defaultMode are the mode bits used to set
-                                permissions on created files by default. Must be an
-                                octal value between 0000 and 0777 or a decimal value
-                                between 0 and 511. YAML accepts both octal and decimal
-                                values, JSON requires decimal values for mode bits.
-                                Directories within the path are not affected by this
-                                setting. This might be in conflict with other options
-                                that affect the file mode, like fsGroup, and the result
-                                can be other mode bits set.
                               format: int32
                               type: integer
                             sources:
@@ -3761,18 +2912,6 @@ spec:
                                       data to project
                                     properties:
                                       items:
-                                        description: items if unspecified, each key-value
-                                          pair in the Data field of the referenced
-                                          ConfigMap will be projected into the volume
-                                          as a file whose name is the key and content
-                                          is the value. If specified, the listed keys
-                                          will be projected into the specified paths,
-                                          and unlisted keys will not be present. If
-                                          a key is specified which is not present
-                                          in the ConfigMap, the volume setup will
-                                          error unless it is marked optional. Paths
-                                          must be relative and may not contain the
-                                          '..' path or start with '..'.
                                         items:
                                           description: Maps a string key to a path
                                             within a volume.
@@ -3781,18 +2920,6 @@ spec:
                                               description: key is the key to project.
                                               type: string
                                             mode:
-                                              description: 'mode is Optional: mode
-                                                bits used to set permissions on this
-                                                file. Must be an octal value between
-                                                0000 and 0777 or a decimal value between
-                                                0 and 511. YAML accepts both octal
-                                                and decimal values, JSON requires
-                                                decimal values for mode bits. If not
-                                                specified, the volume defaultMode
-                                                will be used. This might be in conflict
-                                                with other options that affect the
-                                                file mode, like fsGroup, and the result
-                                                can be other mode bits set.'
                                               format: int32
                                               type: integer
                                             path:
@@ -3848,18 +2975,6 @@ spec:
                                               - fieldPath
                                               type: object
                                             mode:
-                                              description: 'Optional: mode bits used
-                                                to set permissions on this file, must
-                                                be an octal value between 0000 and
-                                                0777 or a decimal value between 0
-                                                and 511. YAML accepts both octal and
-                                                decimal values, JSON requires decimal
-                                                values for mode bits. If not specified,
-                                                the volume defaultMode will be used.
-                                                This might be in conflict with other
-                                                options that affect the file mode,
-                                                like fsGroup, and the result can be
-                                                other mode bits set.'
                                               format: int32
                                               type: integer
                                             path:
@@ -3908,18 +3023,6 @@ spec:
                                       data to project
                                     properties:
                                       items:
-                                        description: items if unspecified, each key-value
-                                          pair in the Data field of the referenced
-                                          Secret will be projected into the volume
-                                          as a file whose name is the key and content
-                                          is the value. If specified, the listed keys
-                                          will be projected into the specified paths,
-                                          and unlisted keys will not be present. If
-                                          a key is specified which is not present
-                                          in the Secret, the volume setup will error
-                                          unless it is marked optional. Paths must
-                                          be relative and may not contain the '..'
-                                          path or start with '..'.
                                         items:
                                           description: Maps a string key to a path
                                             within a volume.
@@ -3928,18 +3031,6 @@ spec:
                                               description: key is the key to project.
                                               type: string
                                             mode:
-                                              description: 'mode is Optional: mode
-                                                bits used to set permissions on this
-                                                file. Must be an octal value between
-                                                0000 and 0777 or a decimal value between
-                                                0 and 511. YAML accepts both octal
-                                                and decimal values, JSON requires
-                                                decimal values for mode bits. If not
-                                                specified, the volume defaultMode
-                                                will be used. This might be in conflict
-                                                with other options that affect the
-                                                file mode, like fsGroup, and the result
-                                                can be other mode bits set.'
                                               format: int32
                                               type: integer
                                             path:
@@ -3978,16 +3069,6 @@ spec:
                                           to the identifier of the apiserver.
                                         type: string
                                       expirationSeconds:
-                                        description: expirationSeconds is the requested
-                                          duration of validity of the service account
-                                          token. As the token approaches expiration,
-                                          the kubelet volume plugin will proactively
-                                          rotate the service account token. The kubelet
-                                          will start trying to rotate the token if
-                                          the token is older than 80 percent of its
-                                          time to live or if the token is older than
-                                          24 hours.Defaults to 1 hour and must be
-                                          at least 10 minutes.
                                         format: int64
                                         type: integer
                                       path:
@@ -4157,29 +3238,9 @@ spec:
                             this volume. More info: https://kubernetes.io/docs/concepts/storage/volumes#secret'
                           properties:
                             defaultMode:
-                              description: 'defaultMode is Optional: mode bits used
-                                to set permissions on created files by default. Must
-                                be an octal value between 0000 and 0777 or a decimal
-                                value between 0 and 511. YAML accepts both octal and
-                                decimal values, JSON requires decimal values for mode
-                                bits. Defaults to 0644. Directories within the path
-                                are not affected by this setting. This might be in
-                                conflict with other options that affect the file mode,
-                                like fsGroup, and the result can be other mode bits
-                                set.'
                               format: int32
                               type: integer
                             items:
-                              description: items If unspecified, each key-value pair
-                                in the Data field of the referenced Secret will be
-                                projected into the volume as a file whose name is
-                                the key and content is the value. If specified, the
-                                listed keys will be projected into the specified paths,
-                                and unlisted keys will not be present. If a key is
-                                specified which is not present in the Secret, the
-                                volume setup will error unless it is marked optional.
-                                Paths must be relative and may not contain the '..'
-                                path or start with '..'.
                               items:
                                 description: Maps a string key to a path within a
                                   volume.
@@ -4188,16 +3249,6 @@ spec:
                                     description: key is the key to project.
                                     type: string
                                   mode:
-                                    description: 'mode is Optional: mode bits used
-                                      to set permissions on this file. Must be an
-                                      octal value between 0000 and 0777 or a decimal
-                                      value between 0 and 511. YAML accepts both octal
-                                      and decimal values, JSON requires decimal values
-                                      for mode bits. If not specified, the volume
-                                      defaultMode will be used. This might be in conflict
-                                      with other options that affect the file mode,
-                                      like fsGroup, and the result can be other mode
-                                      bits set.'
                                     format: int32
                                     type: integer
                                   path:
@@ -4316,31 +3367,10 @@ spec:
                         run within a pod.
                       properties:
                         args:
-                          description: 'Arguments to the entrypoint. The container
-                            image''s CMD is used if this is not provided. Variable
-                            references $(VAR_NAME) are expanded using the container''s
-                            environment. If a variable cannot be resolved, the reference
-                            in the input string will be unchanged. Double $$ are reduced
-                            to a single $, which allows for escaping the $(VAR_NAME)
-                            syntax: i.e. "$$(VAR_NAME)" will produce the string literal
-                            "$(VAR_NAME)". Escaped references will never be expanded,
-                            regardless of whether the variable exists or not. Cannot
-                            be updated. More info: https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell'
                           items:
                             type: string
                           type: array
                         command:
-                          description: 'Entrypoint array. Not executed within a shell.
-                            The container image''s ENTRYPOINT is used if this is not
-                            provided. Variable references $(VAR_NAME) are expanded
-                            using the container''s environment. If a variable cannot
-                            be resolved, the reference in the input string will be
-                            unchanged. Double $$ are reduced to a single $, which
-                            allows for escaping the $(VAR_NAME) syntax: i.e. "$$(VAR_NAME)"
-                            will produce the string literal "$(VAR_NAME)". Escaped
-                            references will never be expanded, regardless of whether
-                            the variable exists or not. Cannot be updated. More info:
-                            https://kubernetes.io/docs/tasks/inject-data-application/define-command-argument-container/#running-a-command-in-a-shell'
                           items:
                             type: string
                           type: array
@@ -4614,32 +3644,11 @@ spec:
                                   type: object
                               type: object
                             preStop:
-                              description: 'PreStop is called immediately before a
-                                container is terminated due to an API request or management
-                                event such as liveness/startup probe failure, preemption,
-                                resource contention, etc. The handler is not called
-                                if the container crashes or exits. The Pod''s termination
-                                grace period countdown begins before the PreStop hook
-                                is executed. Regardless of the outcome of the handler,
-                                the container will eventually terminate within the
-                                Pod''s termination grace period (unless delayed by
-                                finalizers). Other management of the container blocks
-                                until the hook completes or until the termination
-                                grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks'
                               properties:
                                 exec:
                                   description: Exec specifies the action to take.
                                   properties:
                                     command:
-                                      description: Command is the command line to
-                                        execute inside the container, the working
-                                        directory for the command  is root ('/') in
-                                        the container's filesystem. The command is
-                                        simply exec'd, it is not run inside a shell,
-                                        so traditional shell instructions ('|', etc)
-                                        won't work. To use a shell, you need to explicitly
-                                        call out to that shell. Exit status of 0 is
-                                        treated as live/healthy and non-zero is unhealthy.
                                       items:
                                         type: string
                                       type: array
@@ -4722,15 +3731,6 @@ spec:
                               description: Exec specifies the action to take.
                               properties:
                                 command:
-                                  description: Command is the command line to execute
-                                    inside the container, the working directory for
-                                    the command  is root ('/') in the container's
-                                    filesystem. The command is simply exec'd, it is
-                                    not run inside a shell, so traditional shell instructions
-                                    ('|', etc) won't work. To use a shell, you need
-                                    to explicitly call out to that shell. Exit status
-                                    of 0 is treated as live/healthy and non-zero is
-                                    unhealthy.
                                   items:
                                     type: string
                                   type: array
@@ -4842,21 +3842,6 @@ spec:
                               - port
                               type: object
                             terminationGracePeriodSeconds:
-                              description: Optional duration in seconds the pod needs
-                                to terminate gracefully upon probe failure. The grace
-                                period is the duration in seconds after the processes
-                                running in the pod are sent a termination signal and
-                                the time when the processes are forcibly halted with
-                                a kill signal. Set this value longer than the expected
-                                cleanup time for your process. If this value is nil,
-                                the pod's terminationGracePeriodSeconds will be used.
-                                Otherwise, this value overrides the value provided
-                                by the pod spec. Value must be non-negative integer.
-                                The value zero indicates stop immediately via the
-                                kill signal (no opportunity to shut down). This is
-                                a beta field and requires enabling ProbeTerminationGracePeriod
-                                feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds
-                                is used if unset.
                               format: int64
                               type: integer
                             timeoutSeconds:
@@ -4872,14 +3857,6 @@ spec:
                             Cannot be updated.
                           type: string
                         ports:
-                          description: List of ports to expose from the container.
-                            Exposing a port here gives the system additional information
-                            about the network connections a container uses, but is
-                            primarily informational. Not specifying a port here DOES
-                            NOT prevent that port from being exposed. Any port which
-                            is listening on the default "0.0.0.0" address inside a
-                            container will be accessible from the network. Cannot
-                            be updated.
                           items:
                             description: ContainerPort represents a network port in
                               a single container.
@@ -5050,21 +4027,6 @@ spec:
                               - port
                               type: object
                             terminationGracePeriodSeconds:
-                              description: Optional duration in seconds the pod needs
-                                to terminate gracefully upon probe failure. The grace
-                                period is the duration in seconds after the processes
-                                running in the pod are sent a termination signal and
-                                the time when the processes are forcibly halted with
-                                a kill signal. Set this value longer than the expected
-                                cleanup time for your process. If this value is nil,
-                                the pod's terminationGracePeriodSeconds will be used.
-                                Otherwise, this value overrides the value provided
-                                by the pod spec. Value must be non-negative integer.
-                                The value zero indicates stop immediately via the
-                                kill signal (no opportunity to shut down). This is
-                                a beta field and requires enabling ProbeTerminationGracePeriod
-                                feature gate. Minimum value is 1. spec.terminationGracePeriodSeconds
-                                is used if unset.
                               format: int64
                               type: integer
                             timeoutSeconds:
@@ -5167,23 +4129,8 @@ spec:
                               format: int64
                               type: integer
                             runAsNonRoot:
-                              description: Indicates that the container must run as
-                                a non-root user. If true, the Kubelet will validate
-                                the image at runtime to ensure that it does not run
-                                as UID 0 (root) and fail to start the container if
-                                it does. If unset or false, no such validation will
-                                be performed. May also be set in PodSecurityContext.  If
-                                set in both SecurityContext and PodSecurityContext,
-                                the value specified in SecurityContext takes precedence.
                               type: boolean
                             runAsUser:
-                              description: The UID to run the entrypoint of the container
-                                process. Defaults to user specified in image metadata
-                                if unspecified. May also be set in PodSecurityContext.  If
-                                set in both SecurityContext and PodSecurityContext,
-                                the value specified in SecurityContext takes precedence.
-                                Note that this field cannot be set when spec.os.name
-                                is windows.
                               format: int64
                               type: integer
                             seLinuxOptions:
@@ -5258,17 +4205,6 @@ spec:
                                     of the GMSA credential spec to use.
                                   type: string
                                 hostProcess:
-                                  description: HostProcess determines if a container
-                                    should be run as a 'Host Process' container. This
-                                    field is alpha-level and will only be honored
-                                    by components that enable the WindowsHostProcessContainers
-                                    feature flag. Setting this field without the feature
-                                    flag will result in errors when validating the
-                                    Pod. All of a Pod's containers must have the same
-                                    effective HostProcess value (it is not allowed
-                                    to have a mix of HostProcess containers and non-HostProcess
-                                    containers).  In addition, if HostProcess is true
-                                    then HostNetwork must also be set to true.
                                   type: boolean
                                 runAsUserName:
                                   description: The UserName in Windows to run the
@@ -5281,29 +4217,11 @@ spec:
                               type: object
                           type: object
                         startupProbe:
-                          description: 'StartupProbe indicates that the Pod has successfully
-                            initialized. If specified, no other probes are executed
-                            until this completes successfully. If this probe fails,
-                            the Pod will be restarted, just as if the livenessProbe
-                            failed. This can be used to provide different probe parameters
-                            at the beginning of a Pod''s lifecycle, when it might
-                            take a long time to load data or warm a cache, than during
-                            steady-state operation. This cannot be updated. More info:
-                            https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle#container-probes'
                           properties:
                             exec:
                               description: Exec specifies the action to take.
                               properties:
                                 command:
-                                  description: Command is the command line to execute
-                                    inside the container, the working directory for
-                                    the command  is root ('/') in the container's
-                                    filesystem. The command is simply exec'd, it is
-                                    not run inside a shell, so traditional shell instructions
-                                    ('|', etc) won't work. To use a shell, you need
-                                    to explicitly call out to that shell. Exit status
-                                    of 0 is treated as live/healthy and non-zero is
-                                    unhealthy.
                                   items:
                                     type: string
                                   type: array
@@ -7951,11 +6869,6 @@ spec:
                                   - port
                                   type: object
                                 tcpSocket:
-                                  description: Deprecated. TCPSocket is NOT supported
-                                    as a LifecycleHandler and kept for the backward
-                                    compatibility. There are no validation of this
-                                    field and lifecycle hooks will fail in runtime
-                                    when tcp handler is specified.
                                   properties:
                                     host:
                                       description: 'Optional: Host name to connect
@@ -8344,18 +7257,8 @@ spec:
                                   type: array
                               type: object
                             privileged:
-                              description: Run container in privileged mode. Processes
-                                in privileged containers are essentially equivalent
-                                to root on the host. Defaults to false. Note that
-                                this field cannot be set when spec.os.name is windows.
                               type: boolean
                             procMount:
-                              description: procMount denotes the type of proc mount
-                                to use for the containers. The default is DefaultProcMount
-                                which uses the container runtime defaults for readonly
-                                paths and masked paths. This requires the ProcMountType
-                                feature flag to be enabled. Note that this field cannot
-                                be set when spec.os.name is windows.
                               type: string
                             readOnlyRootFilesystem:
                               description: Whether this container has a read-only
@@ -8363,35 +7266,14 @@ spec:
                                 field cannot be set when spec.os.name is windows.
                               type: boolean
                             runAsGroup:
-                              description: The GID to run the entrypoint of the container
-                                process. Uses runtime default if unset. May also be
-                                set in PodSecurityContext.  If set in both SecurityContext
-                                and PodSecurityContext, the value specified in SecurityContext
-                                takes precedence. Note that this field cannot be set
-                                when spec.os.name is windows.
                               format: int64
                               type: integer
                             runAsNonRoot:
                               type: boolean
                             runAsUser:
-                              description: The UID to run the entrypoint of the container
-                                process. Defaults to user specified in image metadata
-                                if unspecified. May also be set in PodSecurityContext.  If
-                                set in both SecurityContext and PodSecurityContext,
-                                the value specified in SecurityContext takes precedence.
-                                Note that this field cannot be set when spec.os.name
-                                is windows.
                               format: int64
                               type: integer
                             seLinuxOptions:
-                              description: The SELinux context to be applied to the
-                                container. If unspecified, the container runtime will
-                                allocate a random SELinux context for each container.  May
-                                also be set in PodSecurityContext.  If set in both
-                                SecurityContext and PodSecurityContext, the value
-                                specified in SecurityContext takes precedence. Note
-                                that this field cannot be set when spec.os.name is
-                                windows.
                               properties:
                                 level:
                                   description: Level is SELinux level label that applies
@@ -8431,12 +7313,6 @@ spec:
                               - type
                               type: object
                             windowsOptions:
-                              description: The Windows specific settings applied to
-                                all containers. If unspecified, the options from the
-                                PodSecurityContext will be used. If set in both SecurityContext
-                                and PodSecurityContext, the value specified in SecurityContext
-                                takes precedence. Note that this field cannot be set
-                                when spec.os.name is linux.
                               properties:
                                 gmsaCredentialSpec:
                                   description: GMSACredentialSpec is where the GMSA
@@ -9159,12 +8035,6 @@ spec:
                                         matchLabels:
                                           additionalProperties:
                                             type: string
-                                          description: matchLabels is a map of {key,value}
-                                            pairs. A single {key,value} in the matchLabels
-                                            map is equivalent to an element of matchExpressions,
-                                            whose key field is "key", the operator
-                                            is "In", and the values array contains
-                                            only "value". The requirements are ANDed.
                                           type: object
                                       type: object
                                     storageClassName:
@@ -10424,14 +9294,6 @@ spec:
                             Cannot be updated.
                           type: string
                         ports:
-                          description: List of ports to expose from the container.
-                            Exposing a port here gives the system additional information
-                            about the network connections a container uses, but is
-                            primarily informational. Not specifying a port here DOES
-                            NOT prevent that port from being exposed. Any port which
-                            is listening on the default "0.0.0.0" address inside a
-                            container will be accessible from the network. Cannot
-                            be updated.
                           items:
                             description: ContainerPort represents a network port in
                               a single container.
